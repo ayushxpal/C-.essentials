@@ -15,9 +15,9 @@ int main()
             isPrime=false;
             break;
         }
+     d++;
         
     }
-    d++;
 
     if(isPrime)
     {
