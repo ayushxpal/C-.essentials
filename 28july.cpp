@@ -38,31 +38,25 @@
 using namespace std;
 int reverse(int num)
 {
+    int rev_num=0;
     while(num!=0)
     {
-         int rev_num;
     int digit=num%10;
     rev_num=rev_num*10+digit;
     num=num/10;
 
     }
 
-    // return rev_num;
+    return rev_num;
 
 }
-// return rev_num;
-
-    // int rev_num;
-    // int digit=num%10;
-    // rev_num=rev_num*10+digit;
-    // num=num/10;
 
 int main()
 {
     int num;
-    int b=reverse(num);
     cout<<"enter a number: ";
     cin>>num;
+    int b=reverse(num);
     if(b==num)
     {
         cout<<"PALINDROME";
