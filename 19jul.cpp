@@ -97,5 +97,6 @@ int main(){
         number=number/10;
         sum+=digit;
     }
+    
     cout<<"sum of digits: "<<sum<<endl;
 }

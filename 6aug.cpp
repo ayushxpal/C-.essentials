@@ -9,12 +9,12 @@ int main()
     {
          if(arr[i]>max)
          {
+          
            max=arr[i];
            
          }
          
-        //  cout<<max<<endl;
-        //  cout<<max;
+         
     }
      cout<<max<<endl;
 }
