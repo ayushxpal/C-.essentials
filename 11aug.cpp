@@ -3,10 +3,8 @@
 using namespace std;
 int main()
 {
-    string firstname="Ayush ";
-    string lastname="Pal";
-    string fullname=firstname.append(lastname);
-    cout<<fullname;
+    string firstname="Ayush";
+    cout<<"length of firstname is "<<firstname.length()<<endl;
     return 0;
 
 }
