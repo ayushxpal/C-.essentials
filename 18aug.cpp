@@ -1,31 +1,19 @@
 #include <iostream>
-#include <iomanip>
-
 using namespace std;
-
 int main()
 {
-    int size;
-    cin>>size;
-
-    int arr[size];
-
-    for(int i=0; i<size; i++)
+    int arr[]={};
+    int n=sizeof(arr) / sizeof(arr[0]);
+    if (n==0)
     {
-        cin>>arr[i];
+        cout<<"array is empty";
+
     }
 
-    int sum=0;
-    int count=0;
+    else{
+        cout<<"array is not empty";
 
-    for(int i=0; i<size; i++)
-    {
-        sum += arr[i];
-        count++;
     }
-
-    double average = (double)sum/count;
-    cout << fixed << setprecision(2) << average;
 
     return 0;
 }
