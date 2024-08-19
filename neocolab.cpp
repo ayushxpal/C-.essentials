@@ -1,52 +1,45 @@
+// //Problem Statement
+
+
+
+// Imagine you are developing a task management system for a team. One of the features requested by the team is the ability to remove the last task added to the list. Your task is to write a program that takes a list of task IDs and removes the last task from the list. After removing the last task, the program should display the updated list of tasks.
+
+// Input format :
+// The first line contains an integer N, representing the number of tasks in the list.
+
+// The second line contains N space-separated integers, representing the task IDs.
+
+// Output format :
+// The output prints the updated list of tasks after removing the last task.
+
+
+
+// Refer to the sample output for formatting specifications.
+
+// Code constraints :
+// 1 ≤ n ≤ 15
+
+// 1 ≤ task IDs ≤ 100
+
+
 #include <iostream>
 using namespace std;
-#include <vector>
-
-vector<int> modifyArray(int n, vector<int>& arr)
-{
-    if (n==1)
-    {
-        return arr;
-    }
-    
-    vector<int> modifiedArr(n);
-    modifiedArr[0] = arr[0] * arr[1];
-    
-    for (int i=1; i<n-1; i++)
-    {
-        modifiedArr[i] = arr[i -1] * arr[i+1];
-    }
-    
-    modifiedArr[n-1]=arr[n-1]*arr[n-2];
-    
-    return modifiedArr;
-    
-}
-
 int main()
 {
     int n;
-    cin >> n;
+    cin>>n;
     
-    vector<int> arr(n);
+    int task_ids[15];
+    
     for (int i=0; i<n; i++)
     {
-        cin>>arr[i];
+        cin>>task_ids[i];
     }
     
-    vector<int> result = modifyArray(n, arr);
-    
-    for(int i=0; i<n; i++)
+    for (int i=0; i<n-1; i++)
     {
-        
-        cout<<result[i];
-        
-        if(i != n -1)
-        {
-            cout<<" ";
-        }
+        cout<<task_ids[i]<<" ";
     }
     
     return 0;
-    
 }
