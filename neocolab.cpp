@@ -1,45 +1,58 @@
-// //Problem Statement
+// Problem Statement
 
 
 
-// Imagine you are developing a task management system for a team. One of the features requested by the team is the ability to remove the last task added to the list. Your task is to write a program that takes a list of task IDs and removes the last task from the list. After removing the last task, the program should display the updated list of tasks.
+// In a survey, a research company collected responses represented by integers. Due to multiple responses, some integers appear more frequently than others. Write a program that takes the number of responses and the responses themselves as input, then outputs the frequency of each unique response.
+
+
+
+// Company Tags: CTS
 
 // Input format :
-// The first line contains an integer N, representing the number of tasks in the list.
+// The first line of input consists of an integer n, which represents the number of responses.
 
-// The second line contains N space-separated integers, representing the task IDs.
+// The second line consists of n space-separated integers that represent the responses.
 
 // Output format :
-// The output prints the updated list of tasks after removing the last task.
+// The program outputs a series of lines, each representing the frequency of responses.
 
 
 
 // Refer to the sample output for formatting specifications.
 
 // Code constraints :
-// 1 ≤ n ≤ 15
+// 1 ≤ n ≤ 25
 
-// 1 ≤ task IDs ≤ 100
+// 1 ≤ responses ≤ 50
 
 
 #include <iostream>
 using namespace std;
+
 int main()
 {
     int n;
     cin>>n;
     
-    int task_ids[15];
+    int responses[25];
+    int frequency[51]={0};
+    
+    
     
     for (int i=0; i<n; i++)
     {
-        cin>>task_ids[i];
+        cin >> responses[i];
+        frequency[responses[i]]++;
     }
     
-    for (int i=0; i<n-1; i++)
+    for (int i=1; i<=50; i++)
     {
-        cout<<task_ids[i]<<" ";
+        if (frequency[i]>0)
+        {
+            cout<<i<<": "<<frequency[i]<<endl;
+        }
     }
     
     return 0;
 }
+
