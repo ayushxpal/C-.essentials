@@ -2,57 +2,54 @@
 
 
 
-// In a survey, a research company collected responses represented by integers. Due to multiple responses, some integers appear more frequently than others. Write a program that takes the number of responses and the responses themselves as input, then outputs the frequency of each unique response.
-
-
-
-// Company Tags: CTS
+// You have multiple arrays containing student grades for different subjects. You want to merge these arrays and calculate the average grade for each student. Write a function that takes these arrays as input and returns an array with the average grades.
 
 // Input format :
-// The first line of input consists of an integer n, which represents the number of responses.
+// The first line of input contains the number of students n.
 
-// The second line consists of n space-separated integers that represent the responses.
+// The second line of input contains the number of subjects m.
+
+// The next n lines contain m space-separated integers that represent the grades for each student.
 
 // Output format :
-// The program outputs a series of lines, each representing the frequency of responses.
+// The output displays the average grades for each student in separate lines, as a double value rounded off to one decimal place.
 
 
 
 // Refer to the sample output for formatting specifications.
 
 // Code constraints :
-// 1 ≤ n ≤ 25
+// In this scenario, the test cases fall under the following constraints:
 
-// 1 ≤ responses ≤ 50
+// 1 ≤ n, m ≤ 10
+
+// 1 ≤ grade ≤ 100
 
 
 #include <iostream>
+#include <iomanip>
 using namespace std;
-
 int main()
 {
-    int n;
-    cin>>n;
+    int n, m;
+    cin>>n>>m;
     
-    int responses[25];
-    int frequency[51]={0};
-    
-    
-    
-    for (int i=0; i<n; i++)
+    for( int i=0; i<n; i++)
     {
-        cin >> responses[i];
-        frequency[responses[i]]++;
-    }
-    
-    for (int i=1; i<=50; i++)
-    {
-        if (frequency[i]>0)
+        int sum = 0;
+        
+        for (int j=0; j<m; j++)
         {
-            cout<<i<<": "<<frequency[i]<<endl;
+            int grade;
+            cin>>grade;
+            sum+=grade;
+            
         }
+        
+        double average = (double)sum/ m;
+        cout<<"Student "<<(i+1)<<": "<<fixed<<setprecision(1)<<average<<endl;
     }
     
     return 0;
+    
 }
-
