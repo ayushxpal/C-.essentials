@@ -14,7 +14,9 @@ class circle
 int main()
 {
     circle object;
-    object.radius=5.5;
+    object.radius;
+    cout<<"enter the radius of your object: ";
+    cin>>object.radius;
     cout<<"Radius is: "<<object.radius<<endl;
     cout<<"area is: "<<object.compute_area();
     return 0;
