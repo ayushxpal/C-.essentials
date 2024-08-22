@@ -8,9 +8,13 @@ int main()
     {
         cin>>array[i];
     }
+    
 
+    for(int i=0; i<n-1; i++)
+    {
+        array[i]= array[i+1];
+    }
     n--;
-
     for(int i=0; i<n; i++)
     {
         cout<<array[i];
