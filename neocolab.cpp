@@ -34,3 +34,53 @@
 // 1 ≤ n ≤ 5
 
 // 1 ≤ array elements ≤ 15
+
+
+
+#include <iostream>
+using namespace std;
+int main()
+{
+    int k;
+    cin>>k;
+    
+    int mergedArray[15];
+    int totalSize=0;
+    
+    for(int i=0; i<k; ++i)
+    {
+        int n;
+        
+        cin>>n;
+        
+        
+        
+        for(int j=0; j<n; ++j)
+        {
+            cin>>mergedArray[totalSize];
+            totalSize++;
+            
+        }
+    }
+    
+    for (int i=0; i<totalSize-1; ++i)
+    {
+        for(int j=i+1; j<totalSize; ++j)
+        {
+            if (mergedArray[i]<mergedArray[j])
+            {
+                 int temp = mergedArray[i];
+                    mergedArray[i]=mergedArray[j];
+                    mergedArray[j]=temp;
+                
+            }
+        }
+    }
+    
+    for(int i=0;i<totalSize;++i)
+    {
+        cout<<mergedArray[i]<<" ";
+    }
+    
+    return 0;
+}

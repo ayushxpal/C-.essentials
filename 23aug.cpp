@@ -11,7 +11,7 @@ int main()
 {
     employee e;
     cout << "Enter Full name: ";
-    cin.get(e.name, 50);
+    cin>>e.name[50];
     cout << "Enter age: ";
     cin >> e.age;
     cout << "Enter salary: ";
