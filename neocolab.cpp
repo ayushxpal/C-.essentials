@@ -2,54 +2,86 @@
 
 
 
-// You have multiple arrays containing student grades for different subjects. You want to merge these arrays and calculate the average grade for each student. Write a function that takes these arrays as input and returns an array with the average grades.
+// You are developing a program that merges two sorted arrays of student IDs.
+
+
+
+// The first array contains the student IDs of students who have successfully completed Course A, while the second array contains the student IDs of students who have successfully completed Course B. Your task is to merge these two arrays into a single array such that the second array should be merged with the first array.
 
 // Input format :
-// The first line of input contains the number of students n.
+// The first line of input consists of an integer n1, representing the size of Course A.
 
-// The second line of input contains the number of subjects m.
+// The second line of input consists of n1 space-separated integers, representing the IDs of course A.
 
-// The next n lines contain m space-separated integers that represent the grades for each student.
+// The third line of input consists of an integer n2, representing the size of Course B.
+
+// The fourth line of input consists of n2 space-separated integers, representing the IDs of course B.
 
 // Output format :
-// The output displays the average grades for each student in separate lines, as a double value rounded off to one decimal place.
+// The output displays the merged array separated by space.
 
 
 
-// Refer to the sample output for formatting specifications.
+// Refer to the sample output for the formatting specifications.
 
 // Code constraints :
 // In this scenario, the test cases fall under the following constraints:
 
-// 1 ≤ n, m ≤ 10
+// 1 ≤ n1, n2 ≤ 10
 
-// 1 ≤ grade ≤ 100
+// 1 ≤ array elements ≤ 25
 
 
+
+
+// You are using GCC
 #include <iostream>
-#include <iomanip>
 using namespace std;
 int main()
 {
-    int n, m;
-    cin>>n>>m;
+    int n1, n2;
+    cin>>n1;
+    int courseA[10];
     
-    for( int i=0; i<n; i++)
+    for (int i=0; i<n1; i++)
     {
-        int sum = 0;
+        cin>>courseA[i];
         
-        for (int j=0; j<m; j++)
-        {
-            int grade;
-            cin>>grade;
-            sum+=grade;
-            
-        }
-        
-        double average = (double)sum/ m;
-        cout<<"Student "<<(i+1)<<": "<<fixed<<setprecision(1)<<average<<endl;
     }
     
-    return 0;
+    cin>>n2;
+    int courseB[10];
     
+    for (int i=0; i<n2; i++)
+    {
+        cin>>courseB[i];
+        
+    }
+    
+    int mergedArray[20];
+    int k=0;
+    
+    for (int i=0; i<n2; i++)
+    {
+        mergedArray[k]=courseB[i];
+        k++;
+        
+    }
+    
+    for (int i=0; i<n1; i++)
+    {
+        mergedArray[k]=courseA[i];
+        k++;
+    }
+    
+    
+   
+   for (int i=0; i<k; i++)
+   {
+       cout<<mergedArray[i]<<" ";
+       
+   }
+   
+   return 0;
 }
+
