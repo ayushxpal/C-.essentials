@@ -1,86 +1,59 @@
+// Single File Programming Question
 // Problem Statement
 
 
 
-// You are working on a project that involves merging K-sorted arrays into a single sorted array. Each array represents the scores of students from different schools in a programming competition. 
+// Banu wants to find the number of elements less than or equal to a given key in a sorted array. 
 
 
 
-// Your task is to develop a program that takes input from the user for K-sorted arrays and merges them into a single sorted array, which will be used for further analysis.
+// Help her write a program that takes the array, the size of the array, and the key as input and returns the count of such elements, using the binary search technique.
 
 
 
-// Company Tags: TCS
+// Company Tags: Accenture
 
 // Input format :
-// The first line of input consists of an integer K, representing the number of sorted arrays.
+// The first line of input consists of the integer n, the size of the array.
 
-// The next 2 * K lines consist of the sizes and elements of each array:
-
-// For each array, the first line consists of an integer n, representing the size of the array.
 // The second line consists of n space-separated integers, representing the elements of the sorted array.
+
+// The third line consists of an integer k.
+
 // Output format :
-// The output prints the merged arrays in descending order, separated by space.
-
-
-
-// Refer to the sample output for the formatting specifications.
+// The output prints the count of elements in the array that are less than or equal to the given value k.
 
 // Code constraints :
-// In this scenario, the test cases fall under the following constraints:
+// 1 ≤ n ≤ 10
 
-// 1 ≤ K ≤ 3
-
-// 1 ≤ n ≤ 5
-
-// 1 ≤ array elements ≤ 15
-
+// -100 ≤ elements of the array ≤ 100
 
 
 #include <iostream>
 using namespace std;
 int main()
 {
-    int k;
-    cin>>k;
-    
-    int mergedArray[15];
-    int totalSize=0;
-    
-    for(int i=0; i<k; ++i)
+    int n, key;
+    cin>>n;
+    int arr[n];
+    for(int i=0; i<n; i++)
     {
-        int n;
-        
-        cin>>n;
-        
-        
-        
-        for(int j=0; j<n; ++j)
+        cin>>arr[i];
+    }
+    
+    cin>>key;
+    
+    int count=0;
+    for(int i=0; i<n; i++)
+    {
+        if(arr[i]<=key)
         {
-            cin>>mergedArray[totalSize];
-            totalSize++;
+            count++;
             
         }
     }
     
-    for (int i=0; i<totalSize-1; ++i)
-    {
-        for(int j=i+1; j<totalSize; ++j)
-        {
-            if (mergedArray[i]<mergedArray[j])
-            {
-                 int temp = mergedArray[i];
-                    mergedArray[i]=mergedArray[j];
-                    mergedArray[j]=temp;
-                
-            }
-        }
-    }
-    
-    for(int i=0;i<totalSize;++i)
-    {
-        cout<<mergedArray[i]<<" ";
-    }
+    cout<<count<<endl;
     
     return 0;
 }
