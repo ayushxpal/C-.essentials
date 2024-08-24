@@ -1,69 +1,92 @@
+// Single File Programming Question
 // Problem Statement
 
 
 
-// Emma has a collection of unique plant species in her garden. She wants to check if a particular plant is already in her collection. 
+// Lucas is analyzing a sorted list of numbers and wants to find the first and last occurrences of a specific target value in the list. 
 
 
 
-// Help Emma by writing a program using a linear search algorithm that determines if the plant species is in her collection.
+// Given a sorted array of integers and a target value, write a program using binary search to find the indices of the first and last occurrences of the target value. If the target value is not found in the array, indicate that as well.
 
 // Input format :
-// The first line of input consists of an integer n, representing the number of plant species.
+// The first line of input consists of n, the number of elements in the list.
 
-// The second line consists of n space-separated integers, representing the plant species IDs in Emma's collection.
+// The second line consists of n elements, separated by space.
 
-// The third line consists of an integer representing the target plant species ID.
+// The third line consists of the target value t.
 
 // Output format :
-// The output prints whether the target plant species ID is present in the collection or not.
+// If the target value is found, print the index of the first and last occurrence. The index starts from 0.
+
+// If the target value is not found, print "Target value [t] is not found in the array."
 
 
 
-// Refer to the sample output for the exact format.
+// Refer to the sample output for formatting specifications.
 
 // Code constraints :
 // 1 ≤ n ≤ 25
 
-// 1 ≤ species ID, target ≤ 100
-
+// 1 ≤ elements, t ≤ 100
 
 
 #include <iostream>
 using namespace std;
-int main()
-{
-        int n;
-        cin>>n;
-        int species[25];
-        
-        for (int i=0; i<n; ++i)
-        {
-            cin>>species[i];
+
+int findFirstOccurrence(int n, int arr[], int target) {
+    int low = 0, high = n - 1;
+    int result = -1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == target) {
+            result = mid;
+            high = mid - 1; // Move to the left half
+        } else if (arr[mid] < target) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
         }
-        
-        int target;
-        cin>>target;
-        bool found=false;
-        for(int i=0; i<n; ++i)
-        {
-            if(species[i] == target)
-            {
-                found=true;
-                break;
-            }
+    }
+    return result;
+}
+
+int findLastOccurrence(int n, int arr[], int target) {
+    int low = 0, high = n - 1;
+    int result = -1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == target) {
+            result = mid;
+            low = mid + 1; // Move to the right half
+        } else if (arr[mid] < target) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
         }
-        
-        if(found)
-        {
-            cout<<"Plant species "<<target<<" is present in the collection"<<endl;
-        }
-        else
-        {
-            cout<<"Plant species "<<target<<" is not present in the collection"<<endl;
-        }
-        
-        return 0;
-        
-    
+    }
+    return result;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    int arr[n];
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+    int target;
+    cin >> target;
+
+    int first = findFirstOccurrence(n, arr, target);
+    int last = findLastOccurrence(n, arr, target);
+
+    if (first != -1 && last != -1) {
+        cout << "The first occurrence of " << target << " is at index " << first << endl;
+        cout << "The last occurrence of " << target << " is at index " << last << endl;
+    } else {
+        cout << "Target value " << target << " is not found in the array" << endl;
+    }
+
+    return 0;
 }
