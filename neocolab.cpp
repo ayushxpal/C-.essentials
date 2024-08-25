@@ -3,72 +3,75 @@
 
 
 
-// Sarah is organizing her digital photo album, which is arranged in a grid. Each cell in the grid represents a photo with a unique ID. She wants to find the exact position of a specific photo ID within the grid. 
+// Imagine you are working on a student management system for a school. As part of the system, you need to develop a feature that allows teachers to enter the names of students in a class and obtain a sorted list of student names. This will help them organize the students alphabetically for various administrative tasks.
 
 
 
-// Assist Sarah by writing a program that determines the position of the photo ID in the album using a linear search algorithm.
+// Write a program that takes input for the number of students in the class and their names. The program should then sort the names in ascending order using bubble sort and display the sorted list.
+
+
+
+// Company Tags: TCS 
 
 // Input format :
-// The first line of input consists of an integer, m, representing the number of rows in the album.
+// The first line of input consists of the number of students n in the class.
 
-// The second line consists of an integer, n, representing the number of columns in the album.
-
-// The next m lines contain n space-separated integers, representing the photo IDs in the album grid.
-
-// The last line of input consists of an integer, target, representing the photo ID Sarah is searching for.
+// The second line of input consists of n space separated strings, representing students' names.
 
 // Output format :
-// The output prints the position of the target photo ID if found. The index starts from 0.
-
-// If the photo ID is not found, it prints "Element [target] not found."
+// The output prints the students' names in sorted order, separated by space.
 
 
 
-// Refer to the sample output for the exact format.
+// Refer to the sample output for the formatting specifications.
 
 // Code constraints :
-// 1 ≤ m, n ≤ 10
+// In this scenario, the test cases fall under the following constraints:
 
-// 1 ≤ array elements ≤ 500
+// The strings contains both lowercases and uppercases with at most 50 character.
 
-// Sample test cases :
-
-
+// You are using GCC
 #include <iostream>
-using namespace std;
+#include <vector>
+#include <string>
+#include <algorithm>
 
-int main() {
-    int m, n;
-    cin >> m >> n;
-    
-    int photoAlbum[m][n];
-    
-    for (int i = 0; i < m; ++i) {
-        for (int j = 0; j < n; ++j) {
-            cin >> photoAlbum[i][j];
-        }
-    }
-    
-    int target;
-    cin >> target;
-    
-    bool found = false;
-    
-    for (int i = 0; i < m; ++i) {
-        for (int j = 0; j < n; ++j) {
-            if (photoAlbum[i][j] == target) {
-                cout << "[" << i << "][" << j << "]" << endl;
-                found = true;
-                break; // Exit the inner loop if found
+void bubbleSort(std::vector<std::string>& names) {
+    int n = names.size();
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n-i-1; ++j) {
+            // Compare adjacent elements, using case insensitivity
+            if (std::lexicographical_compare(names[j+1].begin(), names[j+1].end(),
+                                             names[j].begin(), names[j].end(),
+                                             [](unsigned char a, unsigned char b) { return std::tolower(a) < std::tolower(b); })) {
+                // Swap if the elements are in the wrong order
+                std::swap(names[j], names[j+1]);
             }
         }
-        if (found) break; // Exit the outer loop if found
     }
+}
+
+int main() {
+    int n;
+    std::cin >> n;
+    std::cin.ignore(); // Ignore newline after the integer input
     
-    if (!found) {
-        cout << "Element " << target << " not found." << endl;
+    std::vector<std::string> names(n);
+    for (int i = 0; i < n; ++i) {
+        std::cin >> names[i];
     }
-    
+
+    // Sort the names using bubble sort
+    bubbleSort(names);
+
+    // Print the sorted names
+    for (int i = 0; i < n; ++i) {
+        std::cout << names[i];
+        if (i != n - 1) {
+            std::cout << " ";
+        }
+    }
+    std::cout << std::endl;
+
     return 0;
-}// You are using GCC
+}
