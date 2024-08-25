@@ -1,120 +1,80 @@
-// Single File Programming Question
-// Problem Statement
+// Problem statement
 
 
 
-// Vishwas wants to spend the weekend watching some short films. He has a finite array of short films in front of him. He prefers to watch the highly-rated short film first.
-
-
-
-// As he already knows selection sorting, he wants to sort them in such a fashion. Write a code to use selection sort and display flows step by step in his perception in descending order achieved by swapping the maximum elements to the front of every iteration.
-
-
-
-// Company Tags: CTS
+// Janani needs a program to sort bike registration numbers in ascending order using an insertion sort algorithm. Help her with a program that takes the number of bikes parked and their registration numbers as input, then outputs the sorted registration numbers.
 
 // Input format :
-// The first line of input consists of an integer n, representing the number of short films.
+// The first line of input consists of an integer N, representing the number of bikes.
 
-// The second line of input consists of n space-separated integers, representing the ratings of the short films.
+// The second line consists of N space-separated integers representing the registration numbers of N bikes.
 
 // Output format :
-// The output displays the array after each step of the selection sort, followed by the final sorted array.
+// The output displays the registration numbers in ascending order, separated by a space.
 
 
 
-// Refer to the sample output for formatting specifications.
+// ﻿Refer to the sample output for formatting specifications.
 
 // Code constraints :
 // In this scenario, the test cases fall under the following constraints:
 
-// 1 ≤ n ≤ 15
+// 2 ≤ N ≤ 20
 
-// 0 ≤ ratings ≤ 30
+// 1000 ≤ registration numbers ≤ 9999
 
 // Sample test cases :
 // Input 1 :
-// 5
-// 3 4 5 1 2
+// 4
+// 9899 7877 6766 1000
 // Output 1 :
-// After his step: 1
-// 5 4 3 1 2 
-// After his step: 2
-// 5 4 3 1 2 
-// After his step: 3
-// 5 4 3 1 2 
-// After his step: 4
-// 5 4 3 2 1 
-// Finally, he got it
-// 5 4 3 2 1 
+// 1000 6766 7877 9899 
 // Input 2 :
-// 8
-// 9 4 2 5 6 3 0 1
+// 7
+// 2220 3264 6489 9080 4099 8719 8066
 // Output 2 :
-// After his step: 1
-// 9 4 2 5 6 3 0 1 
-// After his step: 2
-// 9 6 2 5 4 3 0 1 
-// After his step: 3
-// 9 6 5 2 4 3 0 1 
-// After his step: 4
-// 9 6 5 4 2 3 0 1 
-// After his step: 5
-// 9 6 5 4 3 2 0 1 
-// After his step: 6
-// 9 6 5 4 3 2 0 1 
-// After his step: 7
-// 9 6 5 4 3 2 1 0 
-// Finally, he got it
-// 9 6 5 4 3 2 1 0 
+// 2220 3264 4099 6489 8066 8719 9080 
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
-// Extra spaces and new line characters in the program output will result in the failure of the
+// Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
 #include <iostream>
 #include <vector>
 
-void selectionSortDesc(std::vector<int>& ratings) {
-    int n = ratings.size();
-    for (int i = 0; i < n - 1; ++i) { // Adjusted to n-1
-        int maxIndex = i;
-        // Find the maximum element in the unsorted part
-        for (int j = i + 1; j < n; ++j) {
-            if (ratings[j] > ratings[maxIndex]) {
-                maxIndex = j;
-            }
-        }
-        // Swap the found maximum element with the first element
-        std::swap(ratings[i], ratings[maxIndex]);
+void insertionSort(std::vector<int>& arr) {
+    for (size_t i = 1; i < arr.size(); ++i) {
+        int key = arr[i];
+        int j = i - 1;
 
-        // Display the array after each step
-        std::cout << "After his step: " << i + 1 << std::endl;
-        for (int k = 0; k < n; ++k) {
-            std::cout << ratings[k] << " ";
+        // Move elements of arr[0..i-1], that are greater than key,
+        // to one position ahead of their current position
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            --j;
         }
-        std::cout << std::endl;
+        arr[j + 1] = key;
     }
 }
 
 int main() {
-    int n;
-    std::cin >> n;
-    
-    std::vector<int> ratings(n);
-    for (int i = 0; i < n; ++i) {
-        std::cin >> ratings[i];
+    int N;
+    std::cin >> N;  // Reading the number of bikes
+
+    std::vector<int> registration_numbers(N);
+    for (int i = 0; i < N; ++i) {
+        std::cin >> registration_numbers[i];  // Reading each registration number
     }
 
-    // Perform selection sort in descending order
-    selectionSortDesc(ratings);
+    insertionSort(registration_numbers);
 
-    // Print the final sorted array
-    std::cout << "Finally, he got it" << std::endl;
-    for (int i = 0; i < n; ++i) {
-        std::cout << ratings[i] << " ";
+    // Output the sorted registration numbers, space separated
+    for (int i = 0; i < N; ++i) {
+        std::cout << registration_numbers[i];
+        if (i < N - 1) {
+            std::cout << " ";  // add space between numbers
+        }
     }
-    std::cout << std::endl;
 
     return 0;
 }
