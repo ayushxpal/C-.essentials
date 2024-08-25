@@ -3,90 +3,72 @@
 
 
 
-// Lucas is analyzing a sorted list of numbers and wants to find the first and last occurrences of a specific target value in the list. 
+// Sarah is organizing her digital photo album, which is arranged in a grid. Each cell in the grid represents a photo with a unique ID. She wants to find the exact position of a specific photo ID within the grid. 
 
 
 
-// Given a sorted array of integers and a target value, write a program using binary search to find the indices of the first and last occurrences of the target value. If the target value is not found in the array, indicate that as well.
+// Assist Sarah by writing a program that determines the position of the photo ID in the album using a linear search algorithm.
 
 // Input format :
-// The first line of input consists of n, the number of elements in the list.
+// The first line of input consists of an integer, m, representing the number of rows in the album.
 
-// The second line consists of n elements, separated by space.
+// The second line consists of an integer, n, representing the number of columns in the album.
 
-// The third line consists of the target value t.
+// The next m lines contain n space-separated integers, representing the photo IDs in the album grid.
+
+// The last line of input consists of an integer, target, representing the photo ID Sarah is searching for.
 
 // Output format :
-// If the target value is found, print the index of the first and last occurrence. The index starts from 0.
+// The output prints the position of the target photo ID if found. The index starts from 0.
 
-// If the target value is not found, print "Target value [t] is not found in the array."
+// If the photo ID is not found, it prints "Element [target] not found."
 
 
 
-// Refer to the sample output for formatting specifications.
+// Refer to the sample output for the exact format.
 
 // Code constraints :
-// 1 ≤ n ≤ 25
+// 1 ≤ m, n ≤ 10
 
-// 1 ≤ elements, t ≤ 100
+// 1 ≤ array elements ≤ 500
+
+// Sample test cases :
 
 
 #include <iostream>
 using namespace std;
 
-int findFirstOccurrence(int n, int arr[], int target) {
-    int low = 0, high = n - 1;
-    int result = -1;
-    while (low <= high) {
-        int mid = low + (high - low) / 2;
-        if (arr[mid] == target) {
-            result = mid;
-            high = mid - 1; // Move to the left half
-        } else if (arr[mid] < target) {
-            low = mid + 1;
-        } else {
-            high = mid - 1;
-        }
-    }
-    return result;
-}
-
-int findLastOccurrence(int n, int arr[], int target) {
-    int low = 0, high = n - 1;
-    int result = -1;
-    while (low <= high) {
-        int mid = low + (high - low) / 2;
-        if (arr[mid] == target) {
-            result = mid;
-            low = mid + 1; // Move to the right half
-        } else if (arr[mid] < target) {
-            low = mid + 1;
-        } else {
-            high = mid - 1;
-        }
-    }
-    return result;
-}
-
 int main() {
-    int n;
-    cin >> n;
-    int arr[n];
-    for (int i = 0; i < n; i++) {
-        cin >> arr[i];
+    int m, n;
+    cin >> m >> n;
+    
+    int photoAlbum[m][n];
+    
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            cin >> photoAlbum[i][j];
+        }
     }
+    
     int target;
     cin >> target;
-
-    int first = findFirstOccurrence(n, arr, target);
-    int last = findLastOccurrence(n, arr, target);
-
-    if (first != -1 && last != -1) {
-        cout << "The first occurrence of " << target << " is at index " << first << endl;
-        cout << "The last occurrence of " << target << " is at index " << last << endl;
-    } else {
-        cout << "Target value " << target << " is not found in the array" << endl;
+    
+    bool found = false;
+    
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (photoAlbum[i][j] == target) {
+                cout << "[" << i << "][" << j << "]" << endl;
+                found = true;
+                break; // Exit the inner loop if found
+            }
+        }
+        if (found) break; // Exit the outer loop if found
     }
-
+    
+    if (!found) {
+        cout << "Element " << target << " not found." << endl;
+    }
+    
     return 0;
-}
+}// You are using GCC
