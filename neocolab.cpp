@@ -1,80 +1,86 @@
-// Problem statement
+// Single File Programming Question
+// Problem Statement
 
 
 
-// Janani needs a program to sort bike registration numbers in ascending order using an insertion sort algorithm. Help her with a program that takes the number of bikes parked and their registration numbers as input, then outputs the sorted registration numbers.
+// You have an array of integers that need to be sorted in ascending order. The array is sorted using an algorithm that repeatedly selects the smallest element from the unsorted portion of the array and swaps it with the first unsorted element. This process continues until the entire array is sorted.
+
+
+
+// Write a program to sort the array using the appropriate algorithm.
 
 // Input format :
-// The first line of input consists of an integer N, representing the number of bikes.
+// The first line of the input consists of the size of the array N.
 
-// The second line consists of N space-separated integers representing the registration numbers of N bikes.
+// The second line of the input consists of array elements.
 
 // Output format :
-// The output displays the registration numbers in ascending order, separated by a space.
+// The output displays the sorted array, separated by a space.
 
 
 
-// ﻿Refer to the sample output for formatting specifications.
+// Refer to the sample output for the formatting specifications.
 
 // Code constraints :
 // In this scenario, the test cases fall under the following constraints:
 
-// 2 ≤ N ≤ 20
+// 1 ≤ N ≤ 50
 
-// 1000 ≤ registration numbers ≤ 9999
+// 1 ≤ array elements ≤ 1000
 
 // Sample test cases :
 // Input 1 :
-// 4
-// 9899 7877 6766 1000
+// 5
+// 26 14 33 27 54
 // Output 1 :
-// 1000 6766 7877 9899 
+// 14 26 27 33 54 
 // Input 2 :
-// 7
-// 2220 3264 6489 9080 4099 8719 8066
+// 8
+// 24 56 78 31 15 62 76 94
 // Output 2 :
-// 2220 3264 4099 6489 8066 8719 9080 
+// 15 24 31 56 62 76 78 94 
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
+
 #include <iostream>
 #include <vector>
 
-void insertionSort(std::vector<int>& arr) {
-    for (size_t i = 1; i < arr.size(); ++i) {
-        int key = arr[i];
-        int j = i - 1;
-
-        // Move elements of arr[0..i-1], that are greater than key,
-        // to one position ahead of their current position
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            --j;
+void selectionSort(std::vector<int>& arr) {
+    int n = arr.size();
+    for (int i = 0; i < n - 1; ++i) {
+        // Find the index of the minimum element in the unsorted portion
+        int minIndex = i;
+        for (int j = i + 1; j < n; ++j) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
         }
-        arr[j + 1] = key;
+        // Swap the found minimum element with the first unsorted element
+        std::swap(arr[i], arr[minIndex]);
     }
 }
 
 int main() {
     int N;
-    std::cin >> N;  // Reading the number of bikes
+    std::cin >> N;  // Reading the size of the array
 
-    std::vector<int> registration_numbers(N);
+    std::vector<int> array(N);
     for (int i = 0; i < N; ++i) {
-        std::cin >> registration_numbers[i];  // Reading each registration number
+        std::cin >> array[i];  // Reading array elements
     }
 
-    insertionSort(registration_numbers);
+    selectionSort(array);
 
-    // Output the sorted registration numbers, space separated
+    // Output the sorted array, space separated
     for (int i = 0; i < N; ++i) {
-        std::cout << registration_numbers[i];
+        std::cout << array[i];
         if (i < N - 1) {
-            std::cout << " ";  // add space between numbers
+            std::cout << " ";  // Add space between numbers
         }
     }
 
     return 0;
-}
+}// You are using GCC
