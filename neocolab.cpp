@@ -1,80 +1,94 @@
-// Single File Programming Question
 // Problem Statement
 
 
 
-// You have an array of integers that need to be sorted in ascending order. The array is sorted using an algorithm that repeatedly selects the smallest element from the unsorted portion of the array and swaps it with the first unsorted element. This process continues until the entire array is sorted.
+// Given an array of integers, implement the insertion sort algorithm that sorts elements at odd positions in descending order and elements at even positions in ascending order. Input consists of an integer n followed by n integers. Output the sorted array. Here, the position starts from 1.
 
 
 
-// Write a program to sort the array using the appropriate algorithm.
+// Example
+
+
+
+// Input:
+
+// array[] = {7, 10, 11, 3, 6, 9, 2, 13, 0}
+
+
+
+// Output:      
+
+// 11 3 7 9 6 10 2 13 0 
+
+
+
+// Explanation:
+
+// Even-positioned elements are 10 3 9 13. After sorting in ascending order: 3 9 10 13
+
+// Odd-positioned elements are 7 11 6 2 0. After sorting in descending order: 11 7 6 2 0
+
+// Final combined array: 11 3 7 9 6 10 2 13 0 
 
 // Input format :
-// The first line of the input consists of the size of the array N.
+// The first line of input consists of an integer N, representing the number of elements.
 
-// The second line of the input consists of array elements.
+// The second line consists of N space-separated integers representing the elements.
 
 // Output format :
-// The output displays the sorted array, separated by a space.
+// The output displays the sorted array as described in the problem statement, separated by a space.
 
 
 
-// Refer to the sample output for the formatting specifications.
+// ﻿Refer to the sample output for formatting specifications.
 
 // Code constraints :
 // In this scenario, the test cases fall under the following constraints:
 
-// 1 ≤ N ≤ 50
+// 1 ≤ N ≤ 30
 
-// 1 ≤ array elements ≤ 1000
-
-// Sample test cases :
-// Input 1 :
-// 5
-// 26 14 33 27 54
-// Output 1 :
-// 14 26 27 33 54 
-// Input 2 :
-// 8
-// 24 56 78 31 15 62 76 94
-// Output 2 :
-// 15 24 31 56 62 76 78 94 
-// Note :
-// The program will be evaluated only after the “Submit Code” is clicked.
-// Extra spaces and new line characters in the program output will result in the failure of the test case.
-
+// 0 ≤ elements ≤ 105
 
 
 #include <iostream>
 #include <vector>
 
-void selectionSort(std::vector<int>& arr) {
+// Function to sort elements in a vector based on step in the specified order
+void insertionSortStep(std::vector<int>& arr, int start, bool ascending) {
     int n = arr.size();
-    for (int i = 0; i < n - 1; ++i) {
-        // Find the index of the minimum element in the unsorted portion
-        int minIndex = i;
-        for (int j = i + 1; j < n; ++j) {
-            if (arr[j] < arr[minIndex]) {
-                minIndex = j;
+    for (int i = start; i < n; i += 2) {
+        int key = arr[i];
+        int j = i - 2;
+        if (ascending) {
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 2] = arr[j];
+                j -= 2;
+            }
+        } else {
+            while (j >= 0 && arr[j] < key) {
+                arr[j + 2] = arr[j];
+                j -= 2;
             }
         }
-        // Swap the found minimum element with the first unsorted element
-        std::swap(arr[i], arr[minIndex]);
+        arr[j + 2] = key;
     }
 }
 
 int main() {
     int N;
-    std::cin >> N;  // Reading the size of the array
+    std::cin >> N;  // Reading the number of elements
 
     std::vector<int> array(N);
     for (int i = 0; i < N; ++i) {
         std::cin >> array[i];  // Reading array elements
     }
 
-    selectionSort(array);
+    // Sort odd-positioned elements (1-based: 1, 3, 5, ...) in descending order
+    insertionSortStep(array, 0, false);
+    // Sort even-positioned elements (1-based: 2, 4, 6, ...) in ascending order
+    insertionSortStep(array, 1, true);
 
-    // Output the sorted array, space separated
+    // Print the sorted array
     for (int i = 0; i < N; ++i) {
         std::cout << array[i];
         if (i < N - 1) {
@@ -83,4 +97,4 @@ int main() {
     }
 
     return 0;
-}// You are using GCC
+}
