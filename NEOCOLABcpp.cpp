@@ -1,79 +1,130 @@
-// Single File Programming Question
 // Problem Statement
 
 
 
-// You are working on a program that needs to display decimal numbers with a specific formatting pattern. The pattern includes printing decimal numbers from 0.1 to n with three spaces in between each number.
+// John is developing a simulation system for different types of vehicles to calculate their speeds under various conditions using function overloading. The system can compute the speed of a car, a train, and a plane based on the given distance, time, and additional acceleration values.
 
 
 
-// Write a program that takes an integer n as input and displays decimal numbers in the format 0.1, 0.2, 0.3, and so on, up to n numbers, with three spaces in between each number.
+// Formula:
+
+// The speed of the car is calculated using the formula: speed = distance/time
+
+// The speed of the train or plane is calculated using the formula: speed = (distance/time) + acceleration*time
 
 
 
-// Note: Use the manipulator function setw() for the spacings.
+// Example
+
+
+
+// Input:
+
+// 100.5
+
+// 10.0
+
+// 5.5
+
+// 6.6
+
+
+
+// Output:
+
+// 10.05
+
+// 65.05
+
+// 76.05
+
+
+
+// Function Specifications:
+
+// double calculateSpeed(double distance, double time)
+
+// double calculateSpeed(double distance, double time, double acceleration)
+
+
+
+// Note: This is a sample question asked in Capgemini recruitment.
 
 // Input format :
-// The input consists of an integer n.
+// The first line of input consists of the distance(in meters) as a double value.
+
+// The second line of input consists of the time(in seconds) as a double value.
+
+// The third line of input consists of the acceleration(in m/s2) of the train as a double value.
+
+// The third line of input consists of the acceleration(in m/s2) of the plane as a double value.
 
 // Output format :
-// The output prints n decimal numbers, each displayed in the described format with three spaces (use setw(3) for spacings) in between each number.
+// The first line of output prints the speed of the car(m/s) rounded off to two decimal places.
+
+// The second line of output prints the speed of the train(m/s) rounded off to two decimal places.
+
+// The third line of output prints the speed of the plane(m/s) rounded off to two decimal places.
+
+
+
+// Refer to the sample output for the formatting specifications.
 
 // Code constraints :
-// 1 < n < 100
+// 1.0 ≤ distance ≤ 10000.0
+
+// 1.0 ≤ time ≤ 100.0
+
+// 1.0 ≤ accelerations of train and plane ≤ 50.0
 
 // Sample test cases :
 // Input 1 :
-// 5
+// 100.5
+// 10.0
+// 5.5
+// 6.6
 // Output 1 :
-// 0.1 0.2 0.3 0.4 0.5
-// Input 2 :
-// 7
-// Output 2 :
-// 0.1 0.2 0.3 0.4 0.5 0.6 0.7
-// Input 3 :
-// 11
-// Output 3 :
-// 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.10 0.11
+// 10.05
+// 65.05
+// 76.05
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
+// You are using GCC
 #include <iostream>
-#include <iomanip> // Include for setprecision
+#include <iomanip>
 
 using namespace std;
 
+// Function to calculate speed of a car
+double calculateSpeed(double distance, double time) {
+    return distance / time;
+}
+
+// Function to calculate speed of a train or plane
+double calculateSpeed(double distance, double time, double acceleration) {
+    return (distance / time) + (acceleration * time);
+}
+
 int main() {
-    int n;
-    cin >> n;
+    double distance, time, trainAcceleration, planeAcceleration;
 
-    for (int i = 1; i <= n; ++i) {
-        // Calculate the value
-        double value = 0.1 * i;
-        
-        if (value<1.0)
-        {
-            cout<<fixed<<setprecision(1)<<value;
-        }
-        
-        else
-        {
-            cout<<fixed<<setprecision(2)<<value;
-        }
+    // Input the values
+    cin >> distance >> time >> trainAcceleration >> planeAcceleration;
 
-        // Print the value with exactly one decimal place
-        // cout << fixed << setprecision(1) << value;
-        
-        if (i < n) {
-            // Add a single space between the numbers
-            cout << " ";
-        }
-    }
-    cout << endl;
+    // Calculate and print the speed of the car
+    double carSpeed = calculateSpeed(distance, time);
+    cout << fixed << setprecision(2) << carSpeed << endl;
+
+    // Calculate and print the speed of the train
+    double trainSpeed = calculateSpeed(distance, time, trainAcceleration);
+    cout << fixed << setprecision(2) << trainSpeed << endl;
+
+    // Calculate and print the speed of the plane
+    double planeSpeed = calculateSpeed(distance, time, planeAcceleration);
+    cout << fixed << setprecision(2) << planeSpeed << endl;
 
     return 0;
 }
-
-
