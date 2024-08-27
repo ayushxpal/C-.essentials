@@ -2,26 +2,20 @@
 
 
 
-// You're managing a list of product IDs on an e-commerce platform. Each product ID is an integer representing a unique product. You need to search for specific products in the list using two different search methods: linear search and binary search.
+// ﻿You're managing employee records for a company. The employee IDs from two different departments are stored in two separate arrays, both sorted in ascending order. Your task is to merge these two sorted arrays into a single sorted array, ensuring that the order is maintained.
 
-
-
-// Linear Search: This method is used when the list of product IDs is unsorted. You'll traverse the entire list to find the desired product ID.
-// Binary Search: This method is used when the list of product IDs is sorted in ascending order. You'll repeatedly divide the list in half to locate the desired product ID.
 // Input format :
-// The first line of input contains an integer n, representing the number of products in the list.
+// The first line of input contains an integer n, representing the number of employees in the first department.
 
-// The second line contains n space-separated integers, each representing a unique product ID.
+// The second line contains n space-separated integers, each representing a sorted employee ID from the first department.
 
-// The third line contains an integer key, representing the product ID to search for in the list.
+// The third line contains an integer m, representing the number of employees in the second department.
+
+// The fourth line contains m space-separated integers, each representing a sorted employee ID from the second department.
 
 // Output format :
-// The first line of output prints which search method is used, either "Using Binary Search" or "Using Linear Search", depending on whether the list is sorted.
+// The output prints the merged sorted employee IDs from both departments.
 
-// The second line prints one of the following:
-
-// If the product ID is found, print "[key] found at index [index]". The index value starts from 0.
-// If the product ID is not found, print "[key] not found in the list".
 
 
 // Refer to the sample output for formatting specifications.
@@ -29,113 +23,103 @@
 // Code constraints :
 // The given test cases fall under the following constraints:
 
-// 1 ≤ n ≤ 15
+// 0 ≤ n, m ≤ 10
 
-// 100 ≤ product ID, key ≤ 999
+// 101 ≤ employee ID ≤ 990
 
 // Sample test cases :
 // Input 1 :
-// 5
-// 101 405 303 604 505
-// 303
+// 4
+// 101 203 305 407
+// 4
+// 102 204 306 408
 // Output 1 :
-// Using Linear Search
-// 303 found at index 2
+// 101 102 203 204 305 306 407 408 
 // Input 2 :
-// 5
-// 101 405 303 604 505
-// 308
+// 4
+// 101 203 305 407
+// 4
+// 203 305 508 609
 // Output 2 :
-// Using Linear Search
-// 308 not found in the list
+// 101 203 203 305 305 407 508 609 
 // Input 3 :
-// 5
-// 101 205 303 404 505
-// 404
+// 3
+// 102 204 306
+// 0
 // Output 3 :
-// Using Binary Search
-// 404 found at index 3
+// 102 204 306 
 // Input 4 :
-// 5
-// 101 205 303 404 505
-// 409
+// 2
+// 101 202
+// 4
+// 150 250 350 450
 // Output 4 :
-// Using Binary Search
-// 409 not found in the list
+// 101 150 202 250 350 450 
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
+// You are using GCC
 #include <iostream>
+#include <vector>
+
 using namespace std;
 
-// Linear search implementation
-int linearSearch(int arr[], int n, int key) {
-    for (int i = 0; i < n; i++) {
-        if (arr[i] == key) {
-            return i; // Return the index where the key is found
-        }
-    }
-    return -1; // Return -1 if key is not found
-}
-
-// Binary search implementation
-int binarySearch(int arr[], int n, int key) {
-    int left = 0, right = n - 1;
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] == key) {
-            return mid; // Return the index where the key is found
-        }
-        if (arr[mid] < key) {
-            left = mid + 1; // Search in the right half
+// Function to merge two sorted arrays
+vector<int> mergeSortedArrays(const vector<int>& arr1, const vector<int>& arr2) {
+    vector<int> merged;
+    int i = 0, j = 0;
+    int n = arr1.size(), m = arr2.size();
+    
+    while (i < n && j < m) {
+        if (arr1[i] <= arr2[j]) {
+            merged.push_back(arr1[i]);
+            i++;
         } else {
-            right = mid - 1; // Search in the left half
+            merged.push_back(arr2[j]);
+            j++;
         }
     }
-    return -1; // Return -1 if key is not found
-}
 
-// Function to check if array is sorted
-bool isSorted(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        if (arr[i] > arr[i + 1]) {
-            return false;
-        }
+    while (i < n) {
+        merged.push_back(arr1[i]);
+        i++;
     }
-    return true;
-}
 
-// Function to decide search method and search
-int searchArray(int arr[], int n, int key) {
-    if (isSorted(arr, n)) {
-        cout << "Using Binary Search" << endl;
-        return binarySearch(arr, n, key);
-    } else {
-        cout << "Using Linear Search" << endl;
-        return linearSearch(arr, n, key);
+    while (j < m) {
+        merged.push_back(arr2[j]);
+        j++;
     }
+
+    return merged;
 }
 
 int main() {
-    int n, key;
+    int n, m;
+    
+    // Reading data for the first department
     cin >> n;
-    
-    int arr[n];
-    for(int i = 0; i < n; i++) {
-        cin >> arr[i];
+    vector<int> dep1(n);
+    for (int i = 0; i < n; i++) {
+        cin >> dep1[i];
     }
     
-    cin >> key;
-
-    int result = searchArray(arr, n, key);
-
-    if (result != -1) {
-        cout << key << " found at index " << result << endl;
-    } else {
-        cout << key << " not found in the list" << endl;
+    // Reading data for the second department
+    cin >> m;
+    vector<int> dep2(m);
+    for (int i = 0; i < m; i++) {
+        cin >> dep2[i];
     }
+    
+    // Merging the two sorted arrays
+    vector<int> merged = mergeSortedArrays(dep1, dep2);
+    
+    // Output the merged array
+    for (const int& id : merged) {
+        cout << id << " ";
+    }
+    cout << endl;
 
     return 0;
 }
