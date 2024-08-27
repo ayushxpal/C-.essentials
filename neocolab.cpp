@@ -1,44 +1,27 @@
-// Single File Programming Question
 // Problem Statement
 
 
 
-// You're managing the inventory levels of different items in a warehouse. The inventory levels are stored in an array of integers, where each integer represents the quantity of a specific item. 
+// You're managing a list of product IDs on an e-commerce platform. Each product ID is an integer representing a unique product. You need to search for specific products in the list using two different search methods: linear search and binary search.
 
 
 
-// You will perform the following operations:
-
-// 1.	Traversal: Go through the list of inventory quantities to verify the stock levels.
-
-// 2.	Insertion: Add a new item to the inventory, updating the quantity.
-
-// 3.	Deletion: Remove an item from the inventory when it is out of stock.
-
+// Linear Search: This method is used when the list of product IDs is unsorted. You'll traverse the entire list to find the desired product ID.
+// Binary Search: This method is used when the list of product IDs is sorted in ascending order. You'll repeatedly divide the list in half to locate the desired product ID.
 // Input format :
-// The first line of input contains an integer x, representing the number of items in the inventory.
+// The first line of input contains an integer n, representing the number of products in the list.
 
-// The second line contains x space-separated integers, each representing the quantity of an item in the inventory.
+// The second line contains n space-separated integers, each representing a unique product ID.
 
-// The third line contains an integer n, representing the number of items to be newly added.
-
-// The fourth line contains n space-separated integers, each representing the quantity of a new item to be added to the inventory.
-
-// The fifth line contains an integer m, representing the number of items to be removed.
-
-// The sixth line contains m space-separated integers, each representing the quantity of an item to be removed from the inventory.
+// The third line contains an integer key, representing the product ID to search for in the list.
 
 // Output format :
-// The first line of output prints "Inventory List: " followed by the quantities of the items in the inventory, separated by spaces.
+// The first line of output prints which search method is used, either "Using Binary Search" or "Using Linear Search", depending on whether the list is sorted.
 
-// After each insertion:
+// The second line prints one of the following:
 
-// Print "Inserting Item: " followed by the quantity of the new item being added.
-// Print "Inventory List: " followed by the updated inventory quantities, separated by spaces.
-// After each deletion:
-
-// Print "Removing Item: " followed by the quantity of the item being removed.
-// Print "Inventory List: " followed by the updated inventory quantities, separated by spaces.
+// If the product ID is found, print "[key] found at index [index]". The index value starts from 0.
+// If the product ID is not found, print "[key] not found in the list".
 
 
 // Refer to the sample output for formatting specifications.
@@ -46,104 +29,112 @@
 // Code constraints :
 // The given test cases fall under the following constraints:
 
-// 1 ≤ x ≤ 10
+// 1 ≤ n ≤ 15
 
-// 1 ≤ n, m ≤ 5
+// 100 ≤ product ID, key ≤ 999
 
 // Sample test cases :
 // Input 1 :
-// 3
-// 50 120 30
-// 2
-// 75 200
-// 2
-// 120 50
+// 5
+// 101 405 303 604 505
+// 303
 // Output 1 :
-// Inventory List: 50 120 30 
-// Inserting Item: 75
-// Inventory List: 50 120 30 75 
-// Inserting Item: 200
-// Inventory List: 50 120 30 75 200 
-// Removing Item: 120
-// Inventory List: 50 30 75 200 
-// Removing Item: 50
-// Inventory List: 30 75 200 
+// Using Linear Search
+// 303 found at index 2
 // Input 2 :
-// 4
-// 12 78 35 69
-// 1
-// 42
-// 3
-// 42 35 69
+// 5
+// 101 405 303 604 505
+// 308
 // Output 2 :
-// Inventory List: 12 78 35 69 
-// Inserting Item: 42
-// Inventory List: 12 78 35 69 42 
-// Removing Item: 42
-// Inventory List: 12 78 35 69 
-// Removing Item: 35
-// Inventory List: 12 78 69 
-// Removing Item: 69
-// Inventory List: 12 78 
+// Using Linear Search
+// 308 not found in the list
+// Input 3 :
+// 5
+// 101 205 303 404 505
+// 404
+// Output 3 :
+// Using Binary Search
+// 404 found at index 3
+// Input 4 :
+// 5
+// 101 205 303 404 505
+// 409
+// Output 4 :
+// Using Binary Search
+// 409 not found in the list
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
+
 #include <iostream>
-#include <vector>
-#include <algorithm>
+using namespace std;
+
+// Linear search implementation
+int linearSearch(int arr[], int n, int key) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == key) {
+            return i; // Return the index where the key is found
+        }
+    }
+    return -1; // Return -1 if key is not found
+}
+
+// Binary search implementation
+int binarySearch(int arr[], int n, int key) {
+    int left = 0, right = n - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == key) {
+            return mid; // Return the index where the key is found
+        }
+        if (arr[mid] < key) {
+            left = mid + 1; // Search in the right half
+        } else {
+            right = mid - 1; // Search in the left half
+        }
+    }
+    return -1; // Return -1 if key is not found
+}
+
+// Function to check if array is sorted
+bool isSorted(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        if (arr[i] > arr[i + 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Function to decide search method and search
+int searchArray(int arr[], int n, int key) {
+    if (isSorted(arr, n)) {
+        cout << "Using Binary Search" << endl;
+        return binarySearch(arr, n, key);
+    } else {
+        cout << "Using Linear Search" << endl;
+        return linearSearch(arr, n, key);
+    }
+}
 
 int main() {
-    int x;
-    // Read the number of inventory items
-    std::cin >> x;
-    std::vector<int> inventory(x);
+    int n, key;
+    cin >> n;
     
-    // Read the initial inventory quantities
-    for(int i = 0; i < x; ++i) {
-        std::cin >> inventory[i];
+    int arr[n];
+    for(int i = 0; i < n; i++) {
+        cin >> arr[i];
     }
+    
+    cin >> key;
 
-    // Print the initial inventory
-    std::cout << "Inventory List:";
-    for(const auto& item : inventory) {
-        std::cout << " " << item;
-    }
-    std::cout << std::endl;
+    int result = searchArray(arr, n, key);
 
-    int n;
-    // Read the number of new items to be added
-    std::cin >> n;
-    // Read and insert new items
-    for(int i = 0; i < n; ++i) {
-        int new_item;
-        std::cin >> new_item;
-        std::cout << "Inserting Item: " << new_item << std::endl;
-        inventory.push_back(new_item);
-        std::cout << "Inventory List:";
-        for(const auto& item : inventory) {
-            std::cout << " " << item;
-        }
-        std::cout << std::endl;
-    }
-
-    int m;
-    // Read the number of items to be removed
-    std::cin >> m;
-    // Read and remove items
-    for(int i = 0; i < m; ++i) {
-        int remove_item;
-        std::cin >> remove_item;
-        std::cout << "Removing Item: " << remove_item << std::endl;
-        auto it = std::find(inventory.begin(), inventory.end(), remove_item);
-        if (it != inventory.end()) {
-            inventory.erase(it);
-        }
-        std::cout << "Inventory List:";
-        for(const auto& item : inventory) {
-            std::cout << " " << item;
-        }
-        std::cout << std::endl;
+    if (result != -1) {
+        cout << key << " found at index " << result << endl;
+    } else {
+        cout << key << " not found in the list" << endl;
     }
 
     return 0;
