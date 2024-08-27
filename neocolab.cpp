@@ -1,102 +1,150 @@
+// Single File Programming Question
 // Problem Statement
 
 
 
-// Given an array of integers, implement the insertion sort algorithm that sorts elements at odd positions in descending order and elements at even positions in ascending order. Input consists of an integer n followed by n integers. Output the sorted array. Here, the position starts from 1.
+// You're managing the inventory levels of different items in a warehouse. The inventory levels are stored in an array of integers, where each integer represents the quantity of a specific item. 
 
 
 
-// Example
+// You will perform the following operations:
 
+// 1.	Traversal: Go through the list of inventory quantities to verify the stock levels.
 
+// 2.	Insertion: Add a new item to the inventory, updating the quantity.
 
-// Input:
-
-// array[] = {7, 10, 11, 3, 6, 9, 2, 13, 0}
-
-
-
-// Output:      
-
-// 11 3 7 9 6 10 2 13 0 
-
-
-
-// Explanation:
-
-// Even-positioned elements are 10 3 9 13. After sorting in ascending order: 3 9 10 13
-
-// Odd-positioned elements are 7 11 6 2 0. After sorting in descending order: 11 7 6 2 0
-
-// Final combined array: 11 3 7 9 6 10 2 13 0 
+// 3.	Deletion: Remove an item from the inventory when it is out of stock.
 
 // Input format :
-// The first line of input consists of an integer N, representing the number of elements.
+// The first line of input contains an integer x, representing the number of items in the inventory.
 
-// The second line consists of N space-separated integers representing the elements.
+// The second line contains x space-separated integers, each representing the quantity of an item in the inventory.
+
+// The third line contains an integer n, representing the number of items to be newly added.
+
+// The fourth line contains n space-separated integers, each representing the quantity of a new item to be added to the inventory.
+
+// The fifth line contains an integer m, representing the number of items to be removed.
+
+// The sixth line contains m space-separated integers, each representing the quantity of an item to be removed from the inventory.
 
 // Output format :
-// The output displays the sorted array as described in the problem statement, separated by a space.
+// The first line of output prints "Inventory List: " followed by the quantities of the items in the inventory, separated by spaces.
+
+// After each insertion:
+
+// Print "Inserting Item: " followed by the quantity of the new item being added.
+// Print "Inventory List: " followed by the updated inventory quantities, separated by spaces.
+// After each deletion:
+
+// Print "Removing Item: " followed by the quantity of the item being removed.
+// Print "Inventory List: " followed by the updated inventory quantities, separated by spaces.
 
 
-
-// ﻿Refer to the sample output for formatting specifications.
+// Refer to the sample output for formatting specifications.
 
 // Code constraints :
-// In this scenario, the test cases fall under the following constraints:
+// The given test cases fall under the following constraints:
 
-// 1 ≤ N ≤ 30
+// 1 ≤ x ≤ 10
 
-// 0 ≤ elements ≤ 105
+// 1 ≤ n, m ≤ 5
 
+// Sample test cases :
+// Input 1 :
+// 3
+// 50 120 30
+// 2
+// 75 200
+// 2
+// 120 50
+// Output 1 :
+// Inventory List: 50 120 30 
+// Inserting Item: 75
+// Inventory List: 50 120 30 75 
+// Inserting Item: 200
+// Inventory List: 50 120 30 75 200 
+// Removing Item: 120
+// Inventory List: 50 30 75 200 
+// Removing Item: 50
+// Inventory List: 30 75 200 
+// Input 2 :
+// 4
+// 12 78 35 69
+// 1
+// 42
+// 3
+// 42 35 69
+// Output 2 :
+// Inventory List: 12 78 35 69 
+// Inserting Item: 42
+// Inventory List: 12 78 35 69 42 
+// Removing Item: 42
+// Inventory List: 12 78 35 69 
+// Removing Item: 35
+// Inventory List: 12 78 69 
+// Removing Item: 69
+// Inventory List: 12 78 
+// Note :
+// The program will be evaluated only after the “Submit Code” is clicked.
+// Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 #include <iostream>
 #include <vector>
-
-// Function to sort elements in a vector based on step in the specified order
-void insertionSortStep(std::vector<int>& arr, int start, bool ascending) {
-    int n = arr.size();
-    for (int i = start; i < n; i += 2) {
-        int key = arr[i];
-        int j = i - 2;
-        if (ascending) {
-            while (j >= 0 && arr[j] > key) {
-                arr[j + 2] = arr[j];
-                j -= 2;
-            }
-        } else {
-            while (j >= 0 && arr[j] < key) {
-                arr[j + 2] = arr[j];
-                j -= 2;
-            }
-        }
-        arr[j + 2] = key;
-    }
-}
+#include <algorithm>
 
 int main() {
-    int N;
-    std::cin >> N;  // Reading the number of elements
-
-    std::vector<int> array(N);
-    for (int i = 0; i < N; ++i) {
-        std::cin >> array[i];  // Reading array elements
+    int x;
+    // Read the number of inventory items
+    std::cin >> x;
+    std::vector<int> inventory(x);
+    
+    // Read the initial inventory quantities
+    for(int i = 0; i < x; ++i) {
+        std::cin >> inventory[i];
     }
 
-    // Sort odd-positioned elements (1-based: 1, 3, 5, ...) in descending order
-    insertionSortStep(array, 0, false);
-    // Sort even-positioned elements (1-based: 2, 4, 6, ...) in ascending order
-    insertionSortStep(array, 1, true);
+    // Print the initial inventory
+    std::cout << "Inventory List:";
+    for(const auto& item : inventory) {
+        std::cout << " " << item;
+    }
+    std::cout << std::endl;
 
-    // Print the sorted array
-    for (int i = 0; i < N; ++i) {
-        std::cout << array[i];
-        if (i < N - 1) {
-            std::cout << " ";  // Add space between numbers
+    int n;
+    // Read the number of new items to be added
+    std::cin >> n;
+    // Read and insert new items
+    for(int i = 0; i < n; ++i) {
+        int new_item;
+        std::cin >> new_item;
+        std::cout << "Inserting Item: " << new_item << std::endl;
+        inventory.push_back(new_item);
+        std::cout << "Inventory List:";
+        for(const auto& item : inventory) {
+            std::cout << " " << item;
         }
+        std::cout << std::endl;
+    }
+
+    int m;
+    // Read the number of items to be removed
+    std::cin >> m;
+    // Read and remove items
+    for(int i = 0; i < m; ++i) {
+        int remove_item;
+        std::cin >> remove_item;
+        std::cout << "Removing Item: " << remove_item << std::endl;
+        auto it = std::find(inventory.begin(), inventory.end(), remove_item);
+        if (it != inventory.end()) {
+            inventory.erase(it);
+        }
+        std::cout << "Inventory List:";
+        for(const auto& item : inventory) {
+            std::cout << " " << item;
+        }
+        std::cout << std::endl;
     }
 
     return 0;
 }
-
-
