@@ -1,39 +1,50 @@
+// Single File Programming Question
 // Problem Statement
 
 
 
-// Raj oversees parcel IDs in his logistics company and needs to identify prime numbers within a given range for special processing. 
+// A bookstore wants to find the total revenue from book sales over a specific range of days. Each day’s revenue is equal to the day’s number - so day 1 has Rs. 1, day 2 has Rs. 2, and so on.
 
 
 
-// He wants to create a program that reads the start and end values of this range and uses reference variables to determine and display all prime parcel IDs in ascending order.
+// The management needs a tool to calculate the total revenue for any given range of days using call-by-value. The tool should take two integers as input: the starting and ending days of the range. It should then compute the sum of revenues for all days in that range.
 
 
 
-// Function Name: void generatePrimesInRange
+// Function Specifications: int calculateSum(int lower, int upper)
 
 
 
 // Note: This is a sample question asked in TCS recruitment.
 
 // Input format :
-// The input consists of two integers start and end, representing the starting and ending parcel ID, respectively separated by space.
+// The first line consists of an integer, lowerLimit, representing the start of the day range.
+
+// The second line consists of an integer, upperLimit, representing the end-of-the-day range.
 
 // Output format :
-// The output displays a single line containing all prime parcel IDs within the specified range, separated by spaces.
+// The output displays a single integer representing the total revenue from book sales from the lowerLimit day to the upperLimit day.
 
 
 
 // Refer to the sample output for the formatting specifications.
 
 // Code constraints :
-// 0 ≤ start and end ≤ 100
+// 1 ≤ lowerLimit, upperLimit ≤ 50
+
+// lowerLimit < upperLimit
 
 // Sample test cases :
 // Input 1 :
-// 0 10
+// 1
+// 10
 // Output 1 :
-// 2 3 5 7 
+// 55
+// Input 2 :
+// 15
+// 20
+// Output 2 :
+// 105
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
@@ -41,39 +52,27 @@
 
 // You are using GCC
 #include <iostream>
-#include <cmath>
 
-// Function to check if a number is prime
-bool isPrime(int num) {
-    if (num <= 1) return false; // 0 and 1 are not prime numbers
-    if (num == 2) return true;  // 2 is the only even prime number
-    if (num % 2 == 0) return false; // Eliminate multiples of 2
-
-    // Check for factors from 3 to sqrt(num)
-    for (int i = 3; i <= std::sqrt(num); i += 2) {
-        if (num % i == 0) return false;
+// Function to calculate the sum of revenues for the given range of days
+int calculateSum(int lower, int upper) {
+    int totalRevenue = 0;
+    for (int day = lower; day <= upper; ++day) {
+        totalRevenue += day;
     }
-    return true;
-}
-
-// Function to generate and print prime numbers in a given range
-void generatePrimesInRange(int& start, int& end) {
-    for (int i = start; i <= end; ++i) {
-        if (isPrime(i)) {
-            std::cout << i << " ";
-        }
-    }
+    return totalRevenue;
 }
 
 int main() {
-    int start, end;
-    
-    // Read input values for start and end
-    std::cin >> start >> end;
+    int lowerLimit, upperLimit;
 
-    // Generate and output prime numbers within the range
-    generatePrimesInRange(start, end);
+    // Input the lower and upper limits representing the day range
+    std::cin >> lowerLimit >> upperLimit;
+
+    // Calculate the total revenue over the given range
+    int totalRevenue = calculateSum(lowerLimit, upperLimit);
+
+    // Output the total revenue
+    std::cout << totalRevenue;
 
     return 0;
 }
-
