@@ -1,90 +1,83 @@
-Single File Programming Question
-// Problem Statement
+Problem Statement
 
 
 
-// You're managing the inventory levels of different items in a warehouse. The inventory levels are stored in an array of integers, where each integer represents the quantity of a specific item. 
+// Matt is learning C++ and is interested in how inline functions work. He is practicing questions related to this concept. Help him by writing an inline function countEvenNumbers() that counts the number of even digits present in the square of a given number.
 
 
 
-// You will perform the following operations:
+// Example 1
 
-// 1.	Traversal: Go through the list of inventory quantities to verify the stock levels.
 
-// 2.	Insertion: Add a new item to the inventory, updating the quantity.
 
-// 3.	Deletion: Remove an item from the inventory when it is out of stock.
+// Input:
+
+// 12
+
+
+
+// Output:
+
+// 2
+
+
+
+// Explanation:
+
+// Given number = 12. After squaring (12*12 = 144). The number of even digits present is 2.
+
+
+
+// Example 2
+
+
+
+// Input:
+
+// 3
+
+
+
+// Output:
+
+// 0
+
+
+
+// Explanation:
+
+// Given number = 3. After squaring (3*3 = 9). The number of even digits present is 0.
+
+
+
+// Note: This is a sample question that can be asked in a mPhasis recruitment.
 
 // Input format :
-// The first line of input contains an integer x, representing the number of items in the inventory.
-
-// The second line contains x space-separated integers, each representing the quantity of an item in the inventory.
-
-// The third line contains an integer n, representing the number of items to be newly added.
-
-// The fourth line contains n space-separated integers, each representing the quantity of a new item to be added to the inventory.
-
-// The fifth line contains an integer m, representing the number of items to be removed.
-
-// The sixth line contains m space-separated integers, each representing the quantity of an item to be removed from the inventory.
+// The input consists of a positive integer N.
 
 // Output format :
-// The first line of output prints "Inventory List: " followed by the quantities of the items in the inventory, separated by spaces.
-
-// After each insertion:
-
-// Print "Inserting Item: " followed by the quantity of the new item being added.
-// Print "Inventory List: " followed by the updated inventory quantities, separated by spaces.
-// After each deletion:
-
-// Print "Removing Item: " followed by the quantity of the item being removed.
-// Print "Inventory List: " followed by the updated inventory quantities, separated by spaces.
+// The output prints an integer representing the count of even digits in the square of the given number.
 
 
-// Refer to the sample output for formatting specifications.
+
+// Refer to the sample output for the formatting specifications.
 
 // Code constraints :
-// The given test cases fall under the following constraints:
-
-// 1 ≤ x ≤ 10
-
-// 1 ≤ n, m ≤ 5
+// 0 ≤ N ≤ 1000
 
 // Sample test cases :
 // Input 1 :
-// 3
-// 50 120 30
-// 2
-// 75 200
-// 2
-// 120 50
+// 12
 // Output 1 :
-// Inventory List: 50 120 30 
-// Inserting Item: 75
-// Inventory List: 50 120 30 75 
-// Inserting Item: 200
-// Inventory List: 50 120 30 75 200 
-// Removing Item: 120
-// Inventory List: 50 30 75 200 
-// Removing Item: 50
-// Inventory List: 30 75 200 
+// 2
 // Input 2 :
-// 4
-// 12 78 35 69
-// 1
-// 42
 // 3
-// 42 35 69
 // Output 2 :
-// Inventory List: 12 78 35 69 
-// Inserting Item: 42
-// Inventory List: 12 78 35 69 42 
-// Removing Item: 42
-// Inventory List: 12 78 35 69 
-// Removing Item: 35
-// Inventory List: 12 78 69 
-// Removing Item: 69
-// Inventory List: 12 78 
+// 0
+// Input 3 :
+// 10
+// Output 3 :
+// 2
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
