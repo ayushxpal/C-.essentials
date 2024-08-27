@@ -3,79 +3,71 @@
 
 
 
-// A company is developing a system to manage and calculate different types of power outputs for its machinery. Each machine requires a specific base value and exponent to compute its power output.
+// Guna is developing a banking application that allows customers to deposit money into their accounts. The bank provides each customer with an initial balance of 50 rupees. To facilitate the deposit process, Guna has created a class called AddAmount.
 
 
 
-// The company needs a utility that calculates the power of a base number raised to an exponent using the call by reference.
-
-
-
-// For example, if the base is 2 and the exponent is 3, the power is 23 = 8.
-
-
-
-// Function Specification: void power(int& b, int& e)
-
-
-
-// Note: This is a sample question asked in Infosys recruitment.
+// This class represents a transaction to add a specific amount of money to a customer's account. After the transaction is completed, the total amount in the customer's account is printed.
 
 // Input format :
-// The input consists of two integers b and e, representing the base number and exponent, separated by a space.
+// The input consists of a single integer, representing the additional amount to be deposited into the customer's account (the deposit amount).
 
 // Output format :
-// The output prints a single integer representing the result of the power of the base number raised to the exponent.
+// The output displays the total amount in the customer's account after the deposit.
 
 
 
-// Refer to the sample output for the formatting specifications.
+// Refer to the sample output for formatting specifications.
 
 // Code constraints :
-// 1 ≤ b ≤ 10
-
-// 0 ≤ e ≤ 6
+// The input deposit amount is a non-negative integer.
 
 // Sample test cases :
 // Input 1 :
-// 5 3
+// 400
 // Output 1 :
-// 125
+// 450
 // Input 2 :
-// 2 3
+// 250
 // Output 2 :
-// 8
-// Input 3 :
-// 5 0
-// Output 3 :
-// 1
+// 300
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 // Marks : 10
 // Negative Marks : 0
 
+// You are using GCC
 #include <iostream>
 
-// Function to calculate the power of a base raised to an exponent
-void power(int& b, int& e) {
-    int result = 1;
-    for (int i = 0; i < e; ++i) {
-        result *= b;
+class AddAmount {
+private:
+    int balance;
+
+public:
+    // Constructor which initializes the balance and performs deposit
+    AddAmount(int depositAmount) {
+        balance = 50; // Initial balance
+        balance += depositAmount; // Add the deposit amount
     }
-    // Print the result directly
-    std::cout << result;
-}
+
+    // Method to display the total balance
+    void displayTotalAmount() const {
+        std::cout << balance;
+    }
+};
 
 int main() {
-    int base, exponent;
+    int depositAmount;
 
-    // Input the base and exponent
-    std::cin >> base >> exponent;
+    // Input the amount to be deposited
+    std::cin >> depositAmount;
 
-    // Calculate and output the power
-    power(base, exponent);
+    // Create an object of AddAmount with the provided deposit amount
+    AddAmount transaction(depositAmount);
+
+    // Display the total balance after the deposit
+    transaction.displayTotalAmount();
 
     return 0;
-}// You are using GCC
-
+}
