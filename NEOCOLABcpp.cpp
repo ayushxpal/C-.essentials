@@ -2,132 +2,198 @@
 
 
 
-// Seema is building a ticket reservation system and she wants to reserve tickets and cancel for a particular id. She created two classes: Ticket and Reservation. Each Ticket has a private attribute ticketId, and each Reservation has a private attribute reservedTickets (an array of tickets). The Reservation class contains a friend function cancelReservation(Reservation&, const Ticket&) that allows a ticket to be canceled from a reservation. 
+// You are developing a recipe management system that deals with fractional quantities of ingredients. To implement this functionality, you decide to create a Fraction class to handle fractional calculations. The Fraction class has private attributes numerator and a denominator to represent a fraction.
 
 
 
-// Implement the classes and the cancelReservation function and write a program to manage ticket reservations.
+// You need to implement a friend function addMixedFraction(Fraction& , Fraction& ) that takes two Fraction objects as parameters. One of the fractions may be a mixed fraction, where the numerator is greater than the denominator. The function should add the fractions together and return the result as a new Fraction object.
 
 
 
-// Note: This is a sample question asked in Accenture recruitment.
+// Write a program that allows users to input the numerators and denominators of two fractions. Create objects of the Fraction class using the input values. Then, use the addMixedFraction function to add the mixed fractions and display the result.
+
+
+
+// Example 1
+
+
+
+// Input:
+
+// 4 7
+
+// 8 7
+
+
+
+// Output:
+
+// 12/7
+
+
+
+// Explanation:
+
+// The denominators of both fractions are the same (7), so the function directly adds the numerators and places the sum over the common denominator. Mathematically, 4/7 + 8/7 = (4 + 8) / 7 = 12 / 7.
+
+
+
+// Example 2
+
+
+
+// Input:
+
+// 3 5
+
+// 6 7
+
+
+
+// Output:
+
+// 51/35
+
+
+
+// Explanation:
+
+//  As the denominators are different (5 and 7), it finds a common denominator (35) and calculates the sum of numerators: (3 * 7) + (6 * 5) = 21 + 30 = 51. So, 51/35 is printed.
+
+
+
+// Example 3
+
+
+
+// Input:
+
+// 7 4
+
+// 6 5
+
+
+
+// Output:
+
+// 59/20
+
+
+
+// Explanation:
+
+// The denominators are different (4 and 5), so a common denominator is found by multiplying them (20). The numerators are calculated by cross-multiplying and adding: (7 * 5) + (6 * 4) = 35 + 24 = 59. So, 59/20 is printed.
+
+
+
+// Note: This is a sample question asked in Capgemini recruitment.
 
 // Input format :
-// The first line consists of an integer N, representing the total number of tickets N to be reserved.
+// The first line consists of two space-separated integers, representing the numerator and denominator of the first fraction.
 
-// The second line consists of N space-separated integers, representing the ticket IDs.
-
-// The third line consists of an integer, representing the ticket ID for which the reservation has to be cancelled.
+// The second line consists of two space-separated integers, representing the numerator and denominator of the second fraction.
 
 // Output format :
-// The first line displays the reserved tickets in the format: "Reserved Tickets: <ticketId1> <ticketId2> ... <ticketIdN>"
+// The output displays the result of adding the two fractions in the following format: numerator/denominator.
 
 
 
-// The second line displays the cancellation status in the format:
-
-// If the ticket is found and cancelled: "Ticket with ID <ticketId> has been cancelled".
-// If the ticket is not found: "Ticket with ID <ticketId> not found in the reservation".
-
-
-// The third line displays the updated reserved tickets in the format: "Reserved Tickets: <ticketId1> <ticketId2> ... <ticketIdN>".
-
-
-
-// Refer to the sample outputs for the formatting specifications.
+// Refer to the sample output for the formatting specifications.
 
 // Code constraints :
-// 1 ≤ N ≤ 25
+// 1 ≤ numerator ≤ 2000
+
+// 1 ≤ denominator ≤ 100
+
+// Denominators will not be zero
 
 // Sample test cases :
 // Input 1 :
-// 5
-// 101 103 105 108 110
-// 110
+// 4 7
+// 8 7
 // Output 1 :
-// Reserved Tickets: 101 103 105 108 110 
-// Ticket with ID 110 has been cancelled
-// Reserved Tickets: 101 103 105 108 
+// 12/7
 // Input 2 :
-// 5
-// 101 103 105 108 110
-// 111
+// 3 5
+// 6 7
 // Output 2 :
-// Reserved Tickets: 101 103 105 108 110 
-// Ticket with ID 111 not found in the reservation
-// Reserved Tickets: 101 103 105 108 110 
+// 51/35
+// Input 3 :
+// 7 4
+// 6 5
+// Output 3 :
+// 59/20
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
+
 #include <iostream>
-#include <vector>
-#include <algorithm>
-using namespace std;
 
-class Ticket {
+class Fraction {
 private:
-    int ticketId;
+    int numerator;
+    int denominator;
+    
 public:
-    Ticket(int id) : ticketId(id) {}
-    int getTicketId() const { return ticketId; }
+    Fraction(int num, int den) : numerator(num), denominator(den) {
+        // Normalize the fraction immediately upon creation
+        normalize();
+    }
+    
+    // Function to add two fractions
+    friend Fraction addMixedFraction(Fraction& f1, Fraction& f2);
+    
+    // Helper function to print the fraction
+    void display() const {
+        std::cout << numerator << "/" << denominator;
+    }
+
+private:
+    // Function to calculate the greatest common divisor (GCD)
+    int gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    // Function to reduce the fraction to its simplest form
+    void normalize() {
+        int gcdValue = gcd(numerator, denominator);
+        numerator /= gcdValue;
+        denominator /= gcdValue;
+    }
 };
 
-class Reservation {
-private:
-    vector<Ticket> reservedTickets;
-
-    void printReservedTickets() const {
-        cout << "Reserved Tickets:";
-        for (const Ticket &ticket : reservedTickets) {
-            cout << " " << ticket.getTicketId();
-        }
-        cout << endl;
-    }
-
-    friend void cancelReservation(Reservation&, int);
-
-public:
-    Reservation(vector<int> ticketIds) {
-        for (int id : ticketIds) {
-            reservedTickets.push_back(Ticket(id));
-        }
-    }
-
-    void displayStatusAndCancel(const int &ticketId) {
-        printReservedTickets();
-        cancelReservation(*this, ticketId);
-        printReservedTickets();
-    }
-};
-
-void cancelReservation(Reservation &res, int ticketID) {
-    auto it = find_if(res.reservedTickets.begin(), res.reservedTickets.end(),
-        [ticketID](const Ticket &ticket) {
-            return ticket.getTicketId() == ticketID;
-        });
-
-    if (it != res.reservedTickets.end()) {
-        cout << "Ticket with ID " << ticketID << " has been cancelled" << endl;
-        res.reservedTickets.erase(it);
-    } else {
-        cout << "Ticket with ID " << ticketID << " not found in the reservation" << endl;
-    }
+Fraction addMixedFraction(Fraction& f1, Fraction& f2) {
+    // Calculate the new numerator and denominator
+    int commonDenominator = f1.denominator * f2.denominator;
+    int newNumerator = f1.numerator * f2.denominator + f2.numerator * f1.denominator;
+    
+    // Return the result as a new Fraction object
+    return Fraction(newNumerator, commonDenominator);
 }
 
 int main() {
-    int N;
-    cin >> N;
-    vector<int> ticketIds(N);
-    for (int i = 0; i < N; ++i) {
-        cin >> ticketIds[i];
-    }
-    int cancelId;
-    cin >> cancelId;
+    int num1, den1, num2, den2;
 
-    Reservation reservation(ticketIds);
-    reservation.displayStatusAndCancel(cancelId);
+    // Input the first fraction
+    std::cin >> num1 >> den1;
+    Fraction fraction1(num1, den1);
+
+    // Input the second fraction
+    std::cin >> num2 >> den2;
+    Fraction fraction2(num2, den2);
+
+    // Add the two fractions
+    Fraction result = addMixedFraction(fraction1, fraction2);
+
+    // Display the result
+    result.display();
 
     return 0;
 }
