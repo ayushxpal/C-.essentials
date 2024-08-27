@@ -1,165 +1,52 @@
-// Single File Programming Question
 // Problem Statement
 
 
 
-// You are tasked with creating a simple calculator program that performs various arithmetic operations on two integers. The program should allow the user to input two integers and then calculate and display the results of addition, subtraction, multiplication, division, and modulus.
+// Zara is developing a navigation system for a robot. The system uses directions to determine the robot's movement. So, implement a Navigator class that can receive direction input and provide corresponding navigation instructions.
 
 
 
-// Requirements:
+// In this scenario, the program allows you to input a direction using integer values representing the cardinal directions (North, East, West, and South). The code then utilizes the Navigator class to determine the corresponding navigation instruction based on the input direction.
 
 
 
-// The program should prompt the user to enter two integers.
-// It should provide the following functionalities:
-// Calculate and display the sum of the two integers.
-// Calculate and display the difference between the two integers.
-// Calculate and display the product of the two integers.
-// Calculate and display the division of the first integer by the second, with a check to prevent division by zero.
-// Calculate and display the modulus of the first integer by the second, also ensuring that division by zero does not occur.
+// Create an enum with all four directions: North, East, West, and South as the constants.
+
+
+
+// We will then use the switch case statements to switch between the direction elements and print the output based on the value of the variable for the enum directions. Write a program to print the direction it is heading towards.
+
 // Input format :
-// The input consists of two integer values a and b.
+// The input consists of an integer representing the direction.
 
 // Output format :
-// The output prints the result of arithmetic operations.
+// The output prints whether the direction is North (or) South (or) East (or) West (or) Invalid Input.
 
 
 
-// Refer to the sample outputs for formatting specifications.
+// Refer to the sample output for formatting specifications.
 
 // Code constraints :
-// In this scenario, the test cases fall under the following constraints:
+// 1 represents North.
 
-// -1000 ≤ a, b ≤ 1000
+// 2 represents East.
 
+// 3 represents West.
 
+// 4 represents South.
 
-#include <iostream>
-using namespace std;
-
-class Operation
-{
-    public:
-    int a, b;
-    
-    Operation(int x, int y)
-    {
-        a=x;
-        b=y;
-    }
-    
-    int add()
-    {
-        return a+b;
-        
-    }
-    
-    int diff()
-    {
-        return a-b;
-    }
-    
-    int prod()
-    {
-        return a*b;
-    }
-    
-    string div()
-    {
-        if(b==0)
-        {
-            return "Division by zero not possible";
-        }
-        
-        else
-        {
-            return "Division of two numbers: " + to_string(a/b);
-        }
-    }
-    
-    string mod()
-    {
-        if (b==0)
-        {
-            return "Division by zero not possible";
-        }
-        else
-        {
-            return "Modulus of two numbers: "+ to_string(a % b);
-        }
-    }
-};
-
-int main()
-{
-    int a, b;
-    cin>>a>>b;
-    
-    Operation opp(a, b);
-    
-    cout<<"Addition of two numbers: "<<opp.add()<<endl;
-    cout<<"Difference of two numbers: "<<opp.diff()<<endl;
-    cout<<"Product of two numbers: "<<opp.prod()<<endl;
-    cout<<opp.div()<<endl;
-    cout<<opp.mod()<<endl;
-    return 0;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Sample test cases :
+// Input 1 :
+// 1
+// Output 1 :
+// We are headed towards North.
+// Input 2 :
+// 12
+// Output 2 :
+// Invalid Input
+// Note :
+// The program will be evaluated only after the “Submit Code” is clicked.
+// Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
 
