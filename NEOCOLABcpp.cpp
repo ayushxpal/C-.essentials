@@ -1,92 +1,123 @@
-// Single File Programming Question
 // Problem Statement
 
 
 
-// A weather forecasting application needs a program that can convert temperature values between Celsius, Fahrenheit, and Kelvin. The program should allow the user to input a temperature in Celsius and display its equivalent values in Fahrenheit and Kelvin.
+// Imagine you are designing a program for a construction company that needs to keep track of rectangles being used for various projects. You are tasked with creating a class named Rectangle to represent each rectangle used in the projects. 
 
 
 
-// You are tasked with creating a temperature conversion program using a class called TemperatureConverter. The program should allow users to input a temperature in Celsius and display its equivalent values in Fahrenheit and Kelvin. Use a non-inline member function to calculate the converted temperatures.
+// The class should have the following specifications:
+
+// A private static data member named count keeps track of the total number of rectangle objects created. It should be initialized to 0.
+// A public static member function named getCount() returns the value of count. 
+// A public member function named setDimensions takes in the values of length and width as parameters and sets the corresponding data members for a rectangle object. 
+// A public member function named getArea() calculates and returns the area of a rectangle object. 
+// Two private data members named length and width store the integer values of the length and width of a rectangle. These data members are specific to each rectangle object.
 
 
-
-// Formulas:
-
-// Celsius to Fahrenheit	= 9/5 (Celcius) + 32
-// Celsius to Kelvin	K = Celcius + 273.15
-
-
-// Company Tags: Cocubes 
+// Based on the given specifications, your task is to implement the Rectangle class that meets the requirements mentioned above.
 
 // Input format :
-// The input consists of a single line containing a double value representing the temperature in Celsius.
+// The first integer denotes the number of rectangles, n.
+
+// The next n lines of inputs consist of the length and width of each rectangle separated by space.
 
 // Output format :
-// The first line of the output displays the temperature in Fahrenheit, as a double value rounded to two decimal places.
-
-// The second line of the output displays the temperature in Kelvin, as a double value rounded to two decimal places.
+// The output displays the total number of rectangles in the first line, followed by the next n lines containing the area of n rectangles.
 
 
 
-// Refer to the sample output for formatting specifications.
+// Refer to the sample output for the formatting specifications.
 
 // Code constraints :
-// The temperature range is not limited.
-
-// The program should handle positive and negative temperature values.
+// 1 ≤ n ≤ 10
 
 // Sample test cases :
 // Input 1 :
-// 25.5
+// 3
+// 10 20
+// 20 30
+// 30 40
 // Output 1 :
-// Temperature in Fahrenheit: 77.90
-// Temperature in Kelvin: 298.65
+// Total number of rectangles: 3
+// Area of rectangle 1: 200
+// Area of rectangle 2: 600
+// Area of rectangle 3: 1200
 // Input 2 :
-// 0
+// 4
+// 12 30
+// 15 36
+// 24 45
+// 38 65
 // Output 2 :
-// Temperature in Fahrenheit: 32.00
-// Temperature in Kelvin: 273.15
-// Input 3 :
-// -22
-// Output 3 :
-// Temperature in Fahrenheit: -7.60
-// Temperature in Kelvin: 251.15
+// Total number of rectangles: 4
+// Area of rectangle 1: 360
+// Area of rectangle 2: 540
+// Area of rectangle 3: 1080
+// Area of rectangle 4: 2470
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
-
+// You are using GCC
 #include <iostream>
-#include <iomanip>  // For setting precision
+#include <vector>
 
-class TemperatureConverter {
+class Rectangle {
+private:
+    static int count;
+    int length;
+    int width;
+
 public:
-    // Member function to perform the conversions
-    void convertFromCelsius(double celsius) {
-        double fahrenheit = (9.0/5.0 * celsius) + 32;
-        double kelvin = celsius + 273.15;
+    // Constructor to initialize a rectangle with given length and width
+    Rectangle(int len, int wid) : length(len), width(wid) {
+        count++;  // Increase count whenever a new Rectangle object is created
+    }
 
-        // Setting precision to 2 decimal places
-        std::cout << std::fixed << std::setprecision(2);
+    // Static function to return the number of rectangle objects created
+    static int getCount() {
+        return count;
+    }
 
-        // Displaying the results
-        std::cout << "Temperature in Fahrenheit: " << fahrenheit << std::endl;
-        std::cout << "Temperature in Kelvin: " << kelvin << std::endl;
+    // Member function to set the dimensions of rectangle
+    void setDimensions(int len, int wid) {
+        length = len;
+        width = wid;
+    }
+
+    // Member function to calculate and return the area of rectangle
+    int getArea() const {
+        return length * width;
     }
 };
 
+// Initialize static member variable count
+int Rectangle::count = 0;
+
 int main() {
-    // Input temperature in Celsius
-    double celsius;
-    std::cin >> celsius;
+    int n;
+    std::cin >> n;
 
-    // Create an instance of the TemperatureConverter
-    TemperatureConverter converter;
+    std::vector<Rectangle> rectangles;
+    
+    for (int i = 0; i < n; ++i) {
+        int length, width;
+        std::cin >> length >> width;
 
-    // Call the conversion function
-    converter.convertFromCelsius(celsius);
+        // Create a new rectangle with given length and width
+        Rectangle rect(length, width);
+        rectangles.push_back(rect);
+    }
+
+    // Output the total number of rectangles created
+    std::cout << "Total number of rectangles: " << Rectangle::getCount() << std::endl;
+
+    // Output the area for each rectangle
+    for (int i = 0; i < rectangles.size(); ++i) {
+        std::cout << "Area of rectangle " << i + 1 << ": " << rectangles[i].getArea() << std::endl;
+    }
 
     return 0;
 }
