@@ -1,121 +1,77 @@
+// Single File Programming Question
 // Problem Statement
 
 
 
-// You are developing a module for a text-processing application that will manipulate integers. The module should provide functionalities to set an integer, count the number of digits, find the number of odd digits, and calculate the sum of odd digits in the integer.
+// Shabu works at a library and needs to analyze the frequency of digits in identification numbers. Help Shabu by writing a program that counts how many times each digit (0-9) appears in a given number. The output should use the setw manipulator function for formatting.
 
 
 
-// You are tasked with implementing an IntegerManipulator class that performs various operations on a given integer. The class should provide methods to count the number of digits, find the number of odd digits, and calculate the sum of odd digits in the integer.
-
-
-
-// Use a Non-inline member function.
-
-
-
-// Note: This is a sample question asked in a mPhasis interview.
+// Note: Make the width length as 2.
 
 // Input format :
-// The input consists of an integer n.
+// The input consists of an integer N, representing the identification number.
 
 // Output format :
-// The first line displays the number of digits in the number.
-
-// The second line displays the number of odd digits in the integer.
+// For each digit (0-9) that appears in the number, output the digit and the number of times it appears, formatted with a width of 2 for the count.
 
 
 
-// Refer to the sample output for formatting specifications.
+// The output should be in the format: "Digit X: Y times", where X is the digit and Y is its count.
+
+
+
+// Refer to the sample outputs for the formatting specifications.
 
 // Code constraints :
-// 1 ≤ n ≤ 109
+// 102 ≤ N ≤ 109
 
 // Sample test cases :
 // Input 1 :
-// 1124
+// 12312
 // Output 1 :
-// Number of digits: 4
-// Number of odd digits: 2
+// Digit 1:  2 times
+// Digit 2:  2 times
+// Digit 3:  1 times
 // Input 2 :
-// 2468
+// 123
 // Output 2 :
-// Number of digits: 4
-// Number of odd digits: 0
+// Digit 1:  1 times
+// Digit 2:  1 times
+// Digit 3:  1 times
+// Input 3 :
+// 900
+// Output 3 :
+// Digit 0:  2 times
+// Digit 9:  1 times
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 // Marks : 10
 // Negative Marks : 0
 
-// You are using GCC
 #include <iostream>
-
-class IntegerManipulator {
-private:
-    int number;
-
-public:
-    // Constructor to set the initial number
-    IntegerManipulator(int n) : number(n) {}
-
-    // Member function to count the number of digits in the integer
-    int countDigits();
-
-    // Member function to find the number of odd digits in the integer
-    int countOddDigits();
-
-    // Member function to calculate the sum of odd digits in the integer
-    int sumOddDigits();
-};
-
-// Implementation of countDigits member function
-int IntegerManipulator::countDigits() {
-    int count = 0;
-    int temp = number;
-    while (temp > 0) {
-        temp /= 10;
-        count++;
-    }
-    return count;
-}
-
-// Implementation of countOddDigits member function
-int IntegerManipulator::countOddDigits() {
-    int count = 0;
-    int temp = number;
-    while (temp > 0) {
-        int digit = temp % 10;
-        if (digit % 2 != 0) {
-            count++;
-        }
-        temp /= 10;
-    }
-    return count;
-}
-
-// Implementation of sumOddDigits member function
-int IntegerManipulator::sumOddDigits() {
-    int sum = 0;
-    int temp = number;
-    while (temp > 0) {
-        int digit = temp % 10;
-        if (digit % 2 != 0) {
-            sum += digit;
-        }
-        temp /= 10;
-    }
-    return sum;
-}
+#include <iomanip> // For using 
 
 int main() {
-    int n;
-    std::cin >> n;
+    long long N;
+    std::cin >> N;
 
-    IntegerManipulator manipulator(n);
+    int digit_count[10] = {0};  // Array to hold counts for each digit 0-9
 
-    std::cout << "Number of digits: " << manipulator.countDigits() << std::endl;
-    std::cout << "Number of odd digits: " << manipulator.countOddDigits() << std::endl;
+    // Process each digit in the number
+    while (N > 0) {
+        int digit = N % 10;
+        digit_count[digit]++;
+        N /= 10;
+    }
+
+    // Output the results using a whitelist approach (only necessary includes and functionalities)
+    for (int i = 0; i < 10; ++i) {
+        if (digit_count[i] > 0) {
+            std::cout << "Digit " << i << ": " << std::setw(2) << digit_count[i] << " times" << std::endl;
+        }
+    }
 
     return 0;
 }
