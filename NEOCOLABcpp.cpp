@@ -2,198 +2,78 @@
 
 
 
-// You are developing a recipe management system that deals with fractional quantities of ingredients. To implement this functionality, you decide to create a Fraction class to handle fractional calculations. The Fraction class has private attributes numerator and a denominator to represent a fraction.
+// Raj oversees parcel IDs in his logistics company and needs to identify prime numbers within a given range for special processing. 
 
 
 
-// You need to implement a friend function addMixedFraction(Fraction& , Fraction& ) that takes two Fraction objects as parameters. One of the fractions may be a mixed fraction, where the numerator is greater than the denominator. The function should add the fractions together and return the result as a new Fraction object.
+// He wants to create a program that reads the start and end values of this range and uses reference variables to determine and display all prime parcel IDs in ascending order.
 
 
 
-// Write a program that allows users to input the numerators and denominators of two fractions. Create objects of the Fraction class using the input values. Then, use the addMixedFraction function to add the mixed fractions and display the result.
+// Function Name: void generatePrimesInRange
 
 
 
-// Example 1
-
-
-
-// Input:
-
-// 4 7
-
-// 8 7
-
-
-
-// Output:
-
-// 12/7
-
-
-
-// Explanation:
-
-// The denominators of both fractions are the same (7), so the function directly adds the numerators and places the sum over the common denominator. Mathematically, 4/7 + 8/7 = (4 + 8) / 7 = 12 / 7.
-
-
-
-// Example 2
-
-
-
-// Input:
-
-// 3 5
-
-// 6 7
-
-
-
-// Output:
-
-// 51/35
-
-
-
-// Explanation:
-
-//  As the denominators are different (5 and 7), it finds a common denominator (35) and calculates the sum of numerators: (3 * 7) + (6 * 5) = 21 + 30 = 51. So, 51/35 is printed.
-
-
-
-// Example 3
-
-
-
-// Input:
-
-// 7 4
-
-// 6 5
-
-
-
-// Output:
-
-// 59/20
-
-
-
-// Explanation:
-
-// The denominators are different (4 and 5), so a common denominator is found by multiplying them (20). The numerators are calculated by cross-multiplying and adding: (7 * 5) + (6 * 4) = 35 + 24 = 59. So, 59/20 is printed.
-
-
-
-// Note: This is a sample question asked in Capgemini recruitment.
+// Note: This is a sample question asked in TCS recruitment.
 
 // Input format :
-// The first line consists of two space-separated integers, representing the numerator and denominator of the first fraction.
-
-// The second line consists of two space-separated integers, representing the numerator and denominator of the second fraction.
+// The input consists of two integers start and end, representing the starting and ending parcel ID, respectively separated by space.
 
 // Output format :
-// The output displays the result of adding the two fractions in the following format: numerator/denominator.
+// The output displays a single line containing all prime parcel IDs within the specified range, separated by spaces.
 
 
 
 // Refer to the sample output for the formatting specifications.
 
 // Code constraints :
-// 1 ≤ numerator ≤ 2000
-
-// 1 ≤ denominator ≤ 100
-
-// Denominators will not be zero
+// 0 ≤ start and end ≤ 100
 
 // Sample test cases :
 // Input 1 :
-// 4 7
-// 8 7
+// 0 10
 // Output 1 :
-// 12/7
-// Input 2 :
-// 3 5
-// 6 7
-// Output 2 :
-// 51/35
-// Input 3 :
-// 7 4
-// 6 5
-// Output 3 :
-// 59/20
+// 2 3 5 7 
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
-
+// You are using GCC
 #include <iostream>
+#include <cmath>
 
-class Fraction {
-private:
-    int numerator;
-    int denominator;
-    
-public:
-    Fraction(int num, int den) : numerator(num), denominator(den) {
-        // Normalize the fraction immediately upon creation
-        normalize();
-    }
-    
-    // Function to add two fractions
-    friend Fraction addMixedFraction(Fraction& f1, Fraction& f2);
-    
-    // Helper function to print the fraction
-    void display() const {
-        std::cout << numerator << "/" << denominator;
-    }
+// Function to check if a number is prime
+bool isPrime(int num) {
+    if (num <= 1) return false; // 0 and 1 are not prime numbers
+    if (num == 2) return true;  // 2 is the only even prime number
+    if (num % 2 == 0) return false; // Eliminate multiples of 2
 
-private:
-    // Function to calculate the greatest common divisor (GCD)
-    int gcd(int a, int b) {
-        while (b != 0) {
-            int temp = b;
-            b = a % b;
-            a = temp;
+    // Check for factors from 3 to sqrt(num)
+    for (int i = 3; i <= std::sqrt(num); i += 2) {
+        if (num % i == 0) return false;
+    }
+    return true;
+}
+
+// Function to generate and print prime numbers in a given range
+void generatePrimesInRange(int& start, int& end) {
+    for (int i = start; i <= end; ++i) {
+        if (isPrime(i)) {
+            std::cout << i << " ";
         }
-        return a;
     }
-
-    // Function to reduce the fraction to its simplest form
-    void normalize() {
-        int gcdValue = gcd(numerator, denominator);
-        numerator /= gcdValue;
-        denominator /= gcdValue;
-    }
-};
-
-Fraction addMixedFraction(Fraction& f1, Fraction& f2) {
-    // Calculate the new numerator and denominator
-    int commonDenominator = f1.denominator * f2.denominator;
-    int newNumerator = f1.numerator * f2.denominator + f2.numerator * f1.denominator;
-    
-    // Return the result as a new Fraction object
-    return Fraction(newNumerator, commonDenominator);
 }
 
 int main() {
-    int num1, den1, num2, den2;
+    int start, end;
+    
+    // Read input values for start and end
+    std::cin >> start >> end;
 
-    // Input the first fraction
-    std::cin >> num1 >> den1;
-    Fraction fraction1(num1, den1);
-
-    // Input the second fraction
-    std::cin >> num2 >> den2;
-    Fraction fraction2(num2, den2);
-
-    // Add the two fractions
-    Fraction result = addMixedFraction(fraction1, fraction2);
-
-    // Display the result
-    result.display();
+    // Generate and output prime numbers within the range
+    generatePrimesInRange(start, end);
 
     return 0;
 }
+
