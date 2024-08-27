@@ -1,133 +1,121 @@
-// Problem statement
-
-// ﻿
-
-// Design a banking system to handle account transactions. The system should allow users to deposit and withdraw money from their accounts. Each account is associated with an account holder's name, account number, and balance. 
+// Problem Statement
 
 
 
-// Implement the system using a union named AccountData that contains a structure with fields for the account holder's name, account number, and balance. 
+// You are developing a module for a text-processing application that will manipulate integers. The module should provide functionalities to set an integer, count the number of digits, find the number of odd digits, and calculate the sum of odd digits in the integer.
+
+
+
+// You are tasked with implementing an IntegerManipulator class that performs various operations on a given integer. The class should provide methods to count the number of digits, find the number of odd digits, and calculate the sum of odd digits in the integer.
+
+
+
+// Use a Non-inline member function.
+
+
+
+// Note: This is a sample question asked in a mPhasis interview.
 
 // Input format :
-// The first line consists of the account holder's name as a string.
-
-// The second line consists of the account number as an integer.
-
-// The third line consists of the initial balance as a double value.
-
-// The fourth line consists of the amount to deposit as a double value.
-
-// The fifth line consists of the amount to withdraw as a double value.
+// The input consists of an integer n.
 
 // Output format :
-// The first line of output prints "Amount deposited successfully." after processing the deposit.
+// The first line displays the number of digits in the number.
 
-// The second line of output prints:
-
-// "Amount withdrawn successfully." if the withdrawal is successful.
-// "Insufficient balance. Withdrawal failed." if the balance is insufficient.
-// The third line of output prints "Account details:".
-
-// The fourth line of output prints "Account holder's name: <name>", where <name> is the account holder's name.
-
-// The fifth line of output prints "Account number: <number>", where <number> is the account number.
-
-// The sixth line of output prints "Balance: <balance>", where <balance> is the remaining balance after transactions, formatted to two decimal places.
+// The second line displays the number of odd digits in the integer.
 
 
 
-// Refer to sample input and output specifications
+// Refer to the sample output for formatting specifications.
 
 // Code constraints :
-// The account holder's name should not exceed 50 characters.
-
-// The initial balance, deposit amount, and withdrawal amount should be non-negative double values.
+// 1 ≤ n ≤ 109
 
 // Sample test cases :
 // Input 1 :
-// John Doe
-// 123456
-// 5000
-// 1000
-// 500
+// 1124
 // Output 1 :
-// Amount deposited successfully.
-// Amount withdrawn successfully.
-// Account details:
-// Account holder's name: John Doe
-// Account number: 123456
-// Balance: 5500.00
+// Number of digits: 4
+// Number of odd digits: 2
 // Input 2 :
-// Alice Smith
-// 987654
-// 8000
-// 1500
-// 10000
+// 2468
 // Output 2 :
-// Amount deposited successfully.
-// Insufficient balance. Withdrawal failed.
-// Account details:
-// Account holder's name: Alice Smith
-// Account number: 987654
-// Balance: 9500.00
+// Number of digits: 4
+// Number of odd digits: 0
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 // Marks : 10
 // Negative Marks : 0
 
-
 // You are using GCC
 #include <iostream>
-#include <iomanip>
-#include <cstring>
 
-union AccountData {
-    struct {
-        char name[51];      // Account holder's name
-        int accountNumber;  // Account number
-        double balance;     // Account balance
-    } account;
+class IntegerManipulator {
+private:
+    int number;
+
+public:
+    // Constructor to set the initial number
+    IntegerManipulator(int n) : number(n) {}
+
+    // Member function to count the number of digits in the integer
+    int countDigits();
+
+    // Member function to find the number of odd digits in the integer
+    int countOddDigits();
+
+    // Member function to calculate the sum of odd digits in the integer
+    int sumOddDigits();
 };
 
-int main() {
-    AccountData accountData;
-
-    // Input account holder's name
-    std::cin.getline(accountData.account.name, 51);
-
-    // Input account number
-    std::cin >> accountData.account.accountNumber;
-
-    // Input initial balance
-    std::cin >> accountData.account.balance;
-
-    double depositAmount, withdrawAmount;
-
-    // Input deposit amount
-    std::cin >> depositAmount;
-
-    // Input withdrawal amount
-    std::cin >> withdrawAmount;
-
-    // Process deposit
-    accountData.account.balance += depositAmount;
-    std::cout << "Amount deposited successfully." << std::endl;
-
-    // Process withdrawal
-    if (withdrawAmount <= accountData.account.balance) {
-        accountData.account.balance -= withdrawAmount;
-        std::cout << "Amount withdrawn successfully." << std::endl;
-    } else {
-        std::cout << "Insufficient balance. Withdrawal failed." << std::endl;
+// Implementation of countDigits member function
+int IntegerManipulator::countDigits() {
+    int count = 0;
+    int temp = number;
+    while (temp > 0) {
+        temp /= 10;
+        count++;
     }
+    return count;
+}
 
-    // Print account details
-    std::cout << "Account details:" << std::endl;
-    std::cout << "Account holder's name: " << accountData.account.name << std::endl;
-    std::cout << "Account number: " << accountData.account.accountNumber << std::endl;
-    std::cout << std::fixed << std::setprecision(2);
-    std::cout << "Balance: " << accountData.account.balance << std::endl;
+// Implementation of countOddDigits member function
+int IntegerManipulator::countOddDigits() {
+    int count = 0;
+    int temp = number;
+    while (temp > 0) {
+        int digit = temp % 10;
+        if (digit % 2 != 0) {
+            count++;
+        }
+        temp /= 10;
+    }
+    return count;
+}
+
+// Implementation of sumOddDigits member function
+int IntegerManipulator::sumOddDigits() {
+    int sum = 0;
+    int temp = number;
+    while (temp > 0) {
+        int digit = temp % 10;
+        if (digit % 2 != 0) {
+            sum += digit;
+        }
+        temp /= 10;
+    }
+    return sum;
+}
+
+int main() {
+    int n;
+    std::cin >> n;
+
+    IntegerManipulator manipulator(n);
+
+    std::cout << "Number of digits: " << manipulator.countDigits() << std::endl;
+    std::cout << "Number of odd digits: " << manipulator.countOddDigits() << std::endl;
 
     return 0;
 }
