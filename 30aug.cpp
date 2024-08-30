@@ -1,52 +1,22 @@
 #include <iostream>
 using namespace std;
 
-class test
+class sample
 {
-    int code;
-    static int count;
-
+    int a,b;
     public:
-
-    void setcode()
-    {
-        code=++count;
-    }
-    void showcode()
-    {
-        cout<<"Object number: "<<code<<endl;
-    }
-
-    static void showcount()
-    {
-        cout<<"Count: "<<count<<endl;
-    }
-
-
-
-    
-    
+    void setvalue()
+    {a=10;b=40;}
+    friend float mean(sample s);
 };
-
-int test :: count;
-
-int main()
+float mean(sample s)
 {
-    test t1,t2;
+    return float(s.a+s.b)/2;
+}
 
-    t1.setcode();
-    t2.setcode();
-
-    test::showcount();
-
-    test t3;
-    t3.setcode();
-
-    test::showcount();
-
-    t1.showcode();
-    t2.showcode();
-    t3.showcode();
-
-    return 0;
+main()
+{
+    sample x;
+    x.setvalue();
+    cout<<"Mean value:"<<mean(x)<<endl;
 }
