@@ -1,41 +1,52 @@
 #include <iostream>
 using namespace std;
 
-class item
+class test
 {
+    int code;
     static int count;
-    int number;
 
     public:
-    void getdata(int d)
+
+    void setcode()
     {
-        number=d;
-        count++;
+        code=++count;
+    }
+    void showcode()
+    {
+        cout<<"Object number: "<<code<<endl;
     }
 
-    void getcount()
+    static void showcount()
     {
-        cout<<count;
+        cout<<"Count: "<<count<<endl;
     }
+
+
+
+    
+    
 };
 
-int item::count;
+int test :: count;
 
-main(){
+int main()
+{
+    test t1,t2;
 
-    item a,b,c;
+    t1.setcode();
+    t2.setcode();
 
-    a.getcount();
-    b.getcount();
-    c.getcount();
+    test::showcount();
 
-    a.getdata(100);
-    b.getdata(200);
-    c.getdata(300);
+    test t3;
+    t3.setcode();
 
-    cout<<"After reading data";
-    a.getcount();
-    b.getcount();
-    c.getcount();
+    test::showcount();
 
+    t1.showcode();
+    t2.showcode();
+    t3.showcode();
+
+    return 0;
 }
