@@ -1,22 +1,32 @@
 #include <iostream>
 using namespace std;
 
-class sample
+class classA
 {
     int a,b;
     public:
-    void setvalue()
-    {a=10;b=40;}
-    friend float mean(sample s);
-};
-float mean(sample s)
-{
-    return float(s.a+s.b)/2;
-}
+    void output()
+    {
+        cout<<a<<endl<<b;
+    }
 
+    friend class B;
+};
+
+class B
+{
+    int c;
+    public:
+    void ip(A&obj)
+    {
+        obj.a=23;
+        obj.b=24;
+    }
+};
 main()
 {
-    sample x;
-    x.setvalue();
-    cout<<"Mean value:"<<mean(x)<<endl;
+    A objA;
+    B obj1;
+    obj1.ip(objA);
+    objA.output();
 }
