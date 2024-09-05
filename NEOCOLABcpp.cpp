@@ -1,88 +1,81 @@
+// Single File Programming Question
+// Problem Statement
+
+
+
+// Sam is working on a text-processing task where he needs to replace all occurrences of a specific word in a string with another word. Given a string, a target word to be replaced, and a replacement word, Sam wants to output the modified string with all instances of the target word replaced by the replacement word. Use string objects for processing.
+
+// Input format :
+// The first line of input consists of a sentence.
+
+// The second line of input consists of the word to be replaced in the sentence.
+
+// The third line of input consists of the replacement word.
+
 // Output format :
-// The program will output the following in separate lines:
+// If the word to be replaced is present in the sentence, the output prints the modified sentence after replacing it.
 
-// The total sum of all expenses as a double value rounded to two decimal places.
-// The total sum of expenses for the specific category as a double value rounded to two decimal places.
+// If the word to be replaced is not present in the sentence, the output prints the original string as such.
 
 
-// Refer to the sample output for the formatting specifications.
+
+// Refer to the sample output for the exact format.
 
 // Code constraints :
 // In this scenario, the test cases fall under the following constraints:
 
-// 1 ≤ n ≤ 10
+// 2 < Length of the sentence < 1000
 
-// 1.0 ≤ expense ≤ 10000.0
+// The characters are case-sensitive
 
 // Sample test cases :
 // Input 1 :
-// 4
-// Food 25.50 2023-01-15
-// Transportation 12.75 2023-01-16
-// Shopping 50.00 2023-01-18
-// Food 15.25 2023-01-20
-// Food
+// Hello world! 
+// Hello
+// Hi
 // Output 1 :
-// Total Expenses: 103.50
-// Food: 40.75
+// Hi world! 
+// Input 2 :
+// Always the sun the moon
+// the
+// a
+// Output 2 :
+// Always a sun a moon
+// Input 3 :
+// Harry potter
+// Potter
+// harry
+// Output 3 :
+// Harry potter
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
-// You are using GCC
 #include <iostream>
 #include <string>
-#include <vector>
-#include <iomanip>
 
 using namespace std;
 
-class Expense {
-public:
-    string category;
-    double amount;
-    string date;
-
-    Expense(const string& cat, double amt, const string& dt)
-        : category(cat), amount(amt), date(dt) {}
-};
-
 int main() {
-    int n;
-    cin >> n;
-    cin.ignore(); // To ignore the newline character after the integer input
+    string sentence;
+    string target;
+    string replacement;
 
-    vector<Expense> expenses;
-    
-    // Read expenses
-    for (int i = 0; i < n; ++i) {
-        string category;
-        double amount;
-        string date;
-        cin >> category >> amount >> date;
-        expenses.emplace_back(category, amount, date);
+    // Read input
+    getline(cin, sentence);
+    getline(cin, target);
+    getline(cin, replacement);
+
+    // Find and replace all occurrences of target in sentence
+    size_t pos = 0;
+    while ((pos = sentence.find(target, pos)) != string::npos) {
+        sentence.replace(pos, target.length(), replacement);
+        pos += replacement.length(); // Move past the replacement
     }
 
-    string targetCategory;
-    cin.ignore(); // To ignore the newline character after the last input
-    getline(cin, targetCategory);
-
-    double totalExpenses = 0.0;
-    double categoryTotal = 0.0;
-
-    // Calculate totals
-    for (const auto& exp : expenses) {
-        totalExpenses += exp.amount;
-        if (exp.category == targetCategory) {
-            categoryTotal += exp.amount;
-        }
-    }
-
-    // Output results
-    cout << fixed << setprecision(2);
-    cout << "Total Expenses: " << totalExpenses << endl;
-    cout << targetCategory << ": " << categoryTotal << endl;
+    // Output the modified sentence
+    cout << sentence << endl;
 
     return 0;
 }
