@@ -3,61 +3,63 @@
 
 
 
-// You are tasked with creating a program to manage birthday dates. You need to implement a class called Date that represents a date with day, month, and year components. Additionally, you should use a pointer to an object to perform date operations.
+// You are developing a program to determine the maximum number between two input values. To achieve this, you have created a class called NumberComparator. Your goal is to use the "this" pointer concept within this class.
 
 // Input format :
-// The first line of input consists of an integer representing the day of the birthday.
-
-// The second line of input consists of an integer representing the month of the birthday.
-
-// The next line of input consists of an integer representing the year of the birthday.
+// The input consists of two integer values, n1 and n2, separated by space.
 
 // Output format :
-// The program should display the collected birthday data in the following format: The date is day/month/year".
+// The program outputs the maximum of the two numbers, followed by the text " is the maximum number".
+
+
+
+// Refer to the sample output for formatting specifications.
 
 // Code constraints :
-// 1 <= Day <=31
+// In this scenario, the test cases fall under the following constraints:
 
-// 1 <= Month <= 12
-
-// 1500 <= Year <= 2040
+// -107 ≤ n1, n2 ≤ 107
 
 // Sample test cases :
 // Input 1 :
-// 13 
-// 10 
-// 2000
+// 20 25
 // Output 1 :
-// The date is 13/10/2000
+// 25 is the maximum number
 // Input 2 :
-// 21
-// 05
-// 1998
+// -21 -58
 // Output 2 :
-// The date is 21/5/1998
-// Input 3 :
-// 08
-// 06
-// 2000
-// Output 3 :
-// The date is 8/6/2000
+// -21 is the maximum number
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
+
 #include <iostream>
 using namespace std;
 
-int main() {
-    int day;  
-    int month ; 
-    int year; 
-    
-    cin>>day>>month>>year;
+class NumberComparator {
+    int n1, n2;
+public:
+    NumberComparator(int n1, int n2) {
+        this->n1 = n1;
+        this->n2 = n2;
+    }
 
-    cout << "The date is " << day << "/" << month << "/" << year << endl;
-    
-  string p = "&*";
+    void findMax() {
+        if (this->n1 > this->n2) {
+            cout << this->n1 << " is the maximum number" << endl;
+        } else {
+            cout << this->n2 << " is the maximum number" << endl;
+        }
+    }
+};
+
+int main() {
+    int n1, n2;
+    cin >> n1 >> n2;
+
+    NumberComparator comparator(n1, n2);
+    comparator.findMax();
 
     return 0;
 }
