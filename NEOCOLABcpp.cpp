@@ -72,42 +72,32 @@
 #include <iostream>
 using namespace std;
 
-class MultiplicationGame {
+class multiplicationGame {
 public:
     void game(int N) {
         int p = 1;
-        int turn = 1; // Start with John (turn = 1) and Michael (turn = 2)
         int multiplier = 1;
-
+        string winner;
+        
         while (p < N) {
-            if (turn == 1) {
-                // John's turn
+            if (multiplier % 2 != 0) { // John’s turn (odd multipliers)
                 p *= multiplier;
-                turn = 2; // Pass the turn to Michael
-            } else {
-                // Michael's turn
+                winner = "John";
+            } else { // Michael’s turn (even multipliers)
                 p *= multiplier;
-                turn = 1; // Pass the turn to John
+                winner = "Michael";
             }
             multiplier++;
         }
-
-        if (turn == 1) {
-            // If turn is 1, it means Michael just finished his turn and John was about to play next
-            cout << N << " Michael wins" << endl;
-        } else {
-            // If turn is 2, it means John just finished his turn and Michael was about to play next
-            cout << N << " John wins" << endl;
-        }
+        
+        cout << N << " " << winner << " wins" << endl;
     }
 };
 
 int main() {
+    multiplicationGame game;
     int N;
     cin >> N;
-
-    MultiplicationGame game;
     game.game(N);
-
     return 0;
 }
