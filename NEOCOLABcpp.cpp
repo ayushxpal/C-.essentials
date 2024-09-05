@@ -3,117 +3,99 @@
 
 
 
-// Dharun is a teacher and has just finished grading the exams of his students. He wants to analyze the performance of his students by finding the smallest difference between the scores of any two students. Help him write the formula that will help him calculate this smallest difference so that he can generate the report for the same using pointer arithmetic.
-
-
-
-// Function Name: int findSmallestDifference - This function calculates and returns the smallest difference between any two students' scores.
-
-
-
-// Example
-
-
-
-// Input:
-
-// 5
-
-// 100 89 95 56 66
-
-
-
-// Output:
-
-// 5
-
-
-
-// Explanation:
-
-// Here the smallest difference between any two scores (100 and 95), which in this case is 5. This indicates that the closest scores among the students differ by a margin of 5 points.
-
-
-
-// Company Tags: TCS 
+// Janu enjoys learning puzzles from her childhood. She is given an rxc matrix and asked to sum the elements in each row. She needs to attain the sum of elements in a matrix. Create a class named MatrixSum to handle the same.
 
 // Input format :
-// The first line of input consists of the number of students, n as an integer.
+// The first line contains an integer r, representing the number of rows in the matrix.
 
-// The second line of input consists of n space-separated integers representing the scores.
+// The second line contains an integer c, representing the number of columns in the matrix.
+
+// Following these, there are r lines, each containing c integers. These integers represent the elements of the matrix, row by row.
 
 // Output format :
-// The output displays the smallest difference between any two scores.
+// The output prints elements of each row along with the sum of each row.
 
 
 
-// Refer to the sample output for formatting specifications.
+// Refer to the output for formatting specifications.
 
 // Code constraints :
 // In this scenario, the test cases fall under the following constraints:
 
-// 2 ≤ n ≤ 10
+// 1 ≤ r, c ≤ 10
 
-// 0 ≤ scores ≤ 100
+// 0 ≤ elements ≤ 1000
 
 // Sample test cases :
 // Input 1 :
-// 5
-// 100 89 95 56 66
+// 2
+// 3
+// 27 38 59
+// 73 88 99
 // Output 1 :
-// 5
+// 27 38 59 SUM: 124
+// 73 88 99 SUM: 260
 // Input 2 :
 // 3
-// 99 100 90
+// 4
+// 1 2 3 4
+// 5 6 7 8
+// 9 3 2 4
 // Output 2 :
-// 1
+// 1 2 3 4 SUM: 10
+// 5 6 7 8 SUM: 26
+// 9 3 2 4 SUM: 18
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
-
 #include <iostream>
-#include <algorithm> // For std::sort
-#include <climits>   // For INT_MAX
-
+#include <vector>
 using namespace std;
 
-int findSmallestDifference(int* scores, int n) {
-    // Sort the array
-    sort(scores, scores + n);
+class MatrixSum {
+private:
+    int rows, cols;
+    vector<vector<int>> matrix;
 
-    // Initialize the minimum difference to a large value
-    int minDiff = INT_MAX;
+public:
+    // Function to initialize the matrix with given rows and columns
+    void initialize(int r, int c) {
+        rows = r;
+        cols = c;
+        matrix.resize(rows, vector<int>(cols));
+    }
 
-    // Find the smallest difference
-    for (int i = 1; i < n; ++i) {
-        int diff = *(scores + i) - *(scores + i - 1);
-        if (diff < minDiff) {
-            minDiff = diff;
+    // Function to input matrix elements
+    void inputMatrix() {
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                cin >> matrix[i][j];
+            }
         }
     }
 
-    return minDiff;
-}
+    // Function to display the matrix and row sums
+    void displaySums() const {
+        for (int i = 0; i < rows; ++i) {
+            int rowSum = 0;
+            for (int j = 0; j < cols; ++j) {
+                cout << matrix[i][j] << " ";
+                rowSum += matrix[i][j];
+            }
+            cout << "SUM: " << rowSum << endl;
+        }
+    }
+};
 
 int main() {
-    int n;
-    cin >> n;
-    
-    int* scores = new int[n];
+    int r, c;
+    cin >> r >> c;
 
-    // Read the scores
-    for (int i = 0; i < n; ++i) {
-        cin >> scores[i];
-    }
-
-    // Find the smallest difference
-    int smallestDifference = findSmallestDifference(scores, n);
-
-    // Output the result
-    cout << smallestDifference << endl;
-
-    delete[] scores; // Free the allocated memory
+    MatrixSum matrixSum;
+    matrixSum.initialize(r, c);
+    matrixSum.inputMatrix();
+    matrixSum.displaySums();
 
     return 0;
 }
