@@ -3,23 +3,19 @@
 
 
 
-// Akil is a sales manager who wants to evaluate the performance of his sales team. He wants to create a program that allows him to enter the details of a salesperson, including their name and the total sales achieved over a specific number of months. Calculate the average sales per month and display the salesperson's information using a pointer to the data member.
+// Kate is analyzing a series of measurements and needs to determine how many of these measurements fall outside a specified acceptable range. Given a list of measurement values, write a program to count and display the number of measurements that are either below the lower limit or above the upper limit of the specified range.
 
 // Input format :
-// The first line of input consists of the salesperson's name as a string.
+// The first line of input consists of an integer X, representing the number of measurements.
 
-// The second line of input consists of the number of months as an integer.
+// The second line consists of X space-separated integers, representing the measurement values.
 
-// For each month, the sales achieved during that month are represented as an integer number.
+// The third line consists of two space-separated integers L and R, defining the acceptable range.
 
 // Output format :
-// The first line of output consists of the details of the salesperson as: "Salesperson Details:"
+// The output prints an integer, representing the count of measurements that fall outside the specified range defined by L and R.
 
-// The second line of output contains the salesperson's name.
-
-// The third line of output contains the total sales as an integer.
-
-// The last line of output contains the average sales as an integer.
+// If there are no such elements, print "0".
 
 
 
@@ -28,79 +24,59 @@
 // Code constraints :
 // In this scenario, the test cases fall under the following constraints:
 
-// 1 ≤ number of months ≤ 10
+// 2 ≤ X ≤ 10
+
+// 1 ≤ measurement value ≤ 100
+
+// L < R
+
+// L and R are not inclusive.
 
 // Sample test cases :
 // Input 1 :
-// John
 // 5
-// 1000 2000 1500 3000 2500
+// 13 24 15 26 34
+// 11 16
 // Output 1 :
-// Salesperson Details:
-// Name: John
-// Total Sales: 10000
-// Average Sales: 2000
-// Input 2 :
-// Emily
 // 3
-// 500 750 900
+// Input 2 :
+// 6
+// 45 57 89 53 90 98
+// 45 89
 // Output 2 :
-// Salesperson Details:
-// Name: Emily
-// Total Sales: 2150
-// Average Sales: 716
+// 2
+// Input 3 :
+// 3
+// 43 56 67
+// 43 68
+// Output 3 :
+// 0
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
-
-// You are using GCC
 #include <iostream>
-#include <string>
 using namespace std;
 
-class Salesperson {
-public:
-    string name;
-    int totalSales;
-    int months;
+int main() {
+    int X;  // Number of measurements
+    cin >> X;
 
-    void calculateTotalSales(int sales[]) {
-        totalSales = 0;
-        for (int i = 0; i < months; i++) {
-            totalSales += sales[i];
+    int measurements[10];  // Array to store the measurements (up to 10 as per constraints)
+    for (int i = 0; i < X; i++) {
+        cin >> measurements[i];
+    }
+
+    int L, R;  // Lower and upper limit of the acceptable range
+    cin >> L >> R;
+
+    int count = 0;  // Counter for measurements outside the range
+    for (int i = 0; i < X; i++) {
+        if (measurements[i] < L || measurements[i] > R) {  // Exclude the boundary values
+            count++;  // Increment if measurement is strictly outside the acceptable range
         }
     }
 
-    void displaySalesDetails() {
-        int Salesperson::*totalSalesPtr = &Salesperson::totalSales;
-        cout << "Salesperson Details:" << endl;
-        cout << "Name: " << name << endl;
-        cout << "Total Sales: " << this->*totalSalesPtr << endl;
-        cout << "Average Sales: " << (this->*totalSalesPtr) / months << endl;
-    }
-};
-
-int main() {
-    Salesperson sp;
-    
-    // Input salesperson's name
-    getline(cin, sp.name);
-    
-    // Input number of months
-    cin >> sp.months;
-    
-    // Input sales data
-    int sales[10];  // Array to store sales data (up to 10 months)
-    for (int i = 0; i < sp.months; i++) {
-        cin >> sales[i];
-    }
-
-    // Calculate total sales
-    sp.calculateTotalSales(sales);
-    
-    // Display sales details
-    sp.displaySalesDetails();
-
+    cout << count;  // Output the count
     return 0;
 }
