@@ -3,13 +3,23 @@
 
 
 
-// You are developing a program to determine the maximum number between two input values. To achieve this, you have created a class called NumberComparator. Your goal is to use the "this" pointer concept within this class.
+// Akil is a sales manager who wants to evaluate the performance of his sales team. He wants to create a program that allows him to enter the details of a salesperson, including their name and the total sales achieved over a specific number of months. Calculate the average sales per month and display the salesperson's information using a pointer to the data member.
 
 // Input format :
-// The input consists of two integer values, n1 and n2, separated by space.
+// The first line of input consists of the salesperson's name as a string.
+
+// The second line of input consists of the number of months as an integer.
+
+// For each month, the sales achieved during that month are represented as an integer number.
 
 // Output format :
-// The program outputs the maximum of the two numbers, followed by the text " is the maximum number".
+// The first line of output consists of the details of the salesperson as: "Salesperson Details:"
+
+// The second line of output contains the salesperson's name.
+
+// The third line of output contains the total sales as an integer.
+
+// The last line of output contains the average sales as an integer.
 
 
 
@@ -18,48 +28,71 @@
 // Code constraints :
 // In this scenario, the test cases fall under the following constraints:
 
-// -107 ≤ n1, n2 ≤ 107
+// 1 ≤ number of months ≤ 10
 
 // Sample test cases :
 // Input 1 :
-// 20 25
+// John
+// 5
+// 1000 2000 1500 3000 2500
 // Output 1 :
-// 25 is the maximum number
+// Salesperson Details:
+// Name: John
+// Total Sales: 10000
+// Average Sales: 2000
 // Input 2 :
-// -21 -58
+// Emily
+// 3
+// 500 750 900
 // Output 2 :
-// -21 is the maximum number
+// Salesperson Details:
+// Name: Emily
+// Total Sales: 2150
+// Average Sales: 716
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
+// You are using GCC
 #include <iostream>
+#include <string>
 using namespace std;
 
-class NumberComparator {
-    int n1, n2;
+class Salesperson {
 public:
-    NumberComparator(int n1, int n2) {
-        this->n1 = n1;
-        this->n2 = n2;
+    string name;
+    int totalSales;
+    int months;
+
+    void calculateTotalAndAverageSales(int sales[]) {
+        totalSales = 0;
+        for (int i = 0; i < months; i++) {
+            totalSales += sales[i];
+        }
     }
 
-    void findMax() {
-        if (this->n1 > this->n2) {
-            cout << this->n1 << " is the maximum number" << endl;
-        } else {
-            cout << this->n2 << " is the maximum number" << endl;
-        }
+    void displaySalesDetails() {
+        int Salesperson::*totalSalesPtr = &Salesperson::totalSales;
+        cout << "Salesperson Details:" << endl;
+        cout << "Name: " << name << endl;
+        cout << "Total Sales: " << this->*totalSalesPtr << endl;
+        cout << "Average Sales: " << (this->*totalSalesPtr) / months << endl;
     }
 };
 
 int main() {
-    int n1, n2;
-    cin >> n1 >> n2;
+    Salesperson sp;
+    cin >> sp.name;
+    cin >> sp.months;
 
-    NumberComparator comparator(n1, n2);
-    comparator.findMax();
+    int sales[10];
+    for (int i = 0; i < sp.months; i++) {
+        cin >> sales[i];
+    }
+
+    sp.calculateTotalAndAverageSales(sales);
+    sp.displaySalesDetails();
 
     return 0;
 }
