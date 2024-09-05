@@ -3,101 +3,88 @@
 
 
 
-// John and Michael play a game of multiplication. The game starts with an integer p initialized to 1. They take turns multiplying p by one of the numbers from 1 to 9 in a sequence. John always starts by multiplying p by 1 and then passes the result to Michael. Michael multiplies the number by 2 and passes the result back to John. John then multiplies by 3, and so on, increasing the multiplier by 1 with each turn.
-
-
-
-// Before the game starts, they draw an integer N. The winner is the player who first reaches or exceeds p >= N during their turn. Write a class MultiplicationGame with a member function void game(int) to simulate this scenario and determine the winner.
-
-
-
-// Example 
-
-
-
-// Input: N=10
-
-// Output:
-
-// 10 Michael wins
-
-
-
-// Explanation
-
-// If N is 10:
-
-// John starts with p = 1, multiplies by 1 (John's turn), resulting in p = 1.
-
-// Michael multiplies p = 1 by 2, resulting in p = 2.
-
-// John multiplies p = 2 by 3, resulting in p = 6.
-
-// Michael multiplies p = 6 by 4, resulting in p = 24.
-
-// Since 24 is greater than 10, Michael wins.
-
-
-
-// Company Tags: Accenture 
+// Write a function isValidPhoneNumber that takes a phone number (string) as input and determines whether it is a valid phone number. The phone number format should be XXX-XXX-XXXX, where X represents a digit. The number is considered valid if the hyphens are in exact same positions and the length of the string is 12.
 
 // Input format :
-// The input consists of an integer N.
+// The input consists of a phone number in the format XXX-XXX-XXXX, where X represents a digit.
 
 // Output format :
-// The output prints the value of N and the name of the winner, separated by a space.
+// The output displays whether the entered string is a valid phone number or not.
+
+// If the number is valid, the output displays the number without hyphens.
 
 
 
-// Refer to the sample outputs for the formatting specifications.
+// Refer to the sample output for formatting specifications.
 
 // Code constraints :
-// In this scenario, the test cases fall under the following constraints:
+// The phone number should be in the format XXX-XXX-XXXX, with a total length of 12 characters.
 
-// 1 ≤ N ≤ 20
+// Each X in the phone number should be a digit (0-9).
+
+// No additional characters or spaces should be present in the input.
 
 // Sample test cases :
 // Input 1 :
-// 10
+// 123-456-7890
 // Output 1 :
-// 10 Michael wins
+// Yes, the phone number is valid
+// 1234567890
 // Input 2 :
-// 3
+// 123-456-789
 // Output 2 :
-// 3 John wins
+// No, the phone number is not valid
+// Input 3 :
+// 123456-7890
+// Output 3 :
+// No, the phone number is not valid
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
+
 #include <iostream>
+#include <string>
 using namespace std;
 
-class multiplicationGame {
-public:
-    void game(int N) {
-        int p = 1;
-        int multiplier = 1;
-        string winner;
-        
-        while (p < N) {
-            if (multiplier % 2 != 0) { // John’s turn (odd multipliers)
-                p *= multiplier;
-                winner = "John";
-            } else { // Michael’s turn (even multipliers)
-                p *= multiplier;
-                winner = "Michael";
-            }
-            multiplier++;
-        }
-        
-        cout << N << " " << winner << " wins" << endl;
+bool isValidPhoneNumber(const string &phoneNumber) {
+    // Check if the length of the phone number is exactly 12 characters
+    if (phoneNumber.length() != 12) {
+        return false;
     }
-};
+    
+    // Check the format XXX-XXX-XXXX
+    for (int i = 0; i < phoneNumber.length(); ++i) {
+        if (i == 3 || i == 7) { // Positions of hyphens
+            if (phoneNumber[i] != '-') {
+                return false;
+            }
+        } else { // Positions of digits
+            if (!isdigit(phoneNumber[i])) {
+                return false;
+            }
+        }
+    }
+    
+    return true;
+}
 
 int main() {
-    multiplicationGame game;
-    int N;
-    cin >> N;
-    game.game(N);
+    string phoneNumber;
+    cin >> phoneNumber;
+    
+    if (isValidPhoneNumber(phoneNumber)) {
+        cout << "Yes, the phone number is valid" << endl;
+        // Remove hyphens and print the number
+        for (char c : phoneNumber) {
+            if (c != '-') {
+                cout << c;
+            }
+        }
+        cout << endl;
+    } else {
+        cout << "No, the phone number is not valid" << endl;
+    }
+    
     return 0;
 }
