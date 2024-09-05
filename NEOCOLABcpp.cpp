@@ -3,79 +3,117 @@
 
 
 
-// You have been tasked with creating a program that calculates the average word length in a given sentence. Write a function calculateAverageWordLength that takes a sentence (string) as input and returns the average length of the words in the sentence.
+// Dharun is a teacher and has just finished grading the exams of his students. He wants to analyze the performance of his students by finding the smallest difference between the scores of any two students. Help him write the formula that will help him calculate this smallest difference so that he can generate the report for the same using pointer arithmetic.
 
 
 
-// The average word length is calculated by dividing the total number of characters in all words by the number of words in the sentence.
+// Function Name: int findSmallestDifference - This function calculates and returns the smallest difference between any two students' scores.
 
 
 
-// Company Tags: mPhasis
+// Example
+
+
+
+// Input:
+
+// 5
+
+// 100 89 95 56 66
+
+
+
+// Output:
+
+// 5
+
+
+
+// Explanation:
+
+// Here the smallest difference between any two scores (100 and 95), which in this case is 5. This indicates that the closest scores among the students differ by a margin of 5 points.
+
+
+
+// Company Tags: TCS 
 
 // Input format :
-// The input consists of a sentence as space-separated strings.
+// The first line of input consists of the number of students, n as an integer.
+
+// The second line of input consists of n space-separated integers representing the scores.
 
 // Output format :
-// The program outputs the average length of the words in the sentence as a double value rounded off to three decimal places.
+// The output displays the smallest difference between any two scores.
 
 
 
 // Refer to the sample output for formatting specifications.
 
 // Code constraints :
-// 1 ≤ Length of the sentence ≤ 1000
+// In this scenario, the test cases fall under the following constraints:
+
+// 2 ≤ n ≤ 10
+
+// 0 ≤ scores ≤ 100
 
 // Sample test cases :
 // Input 1 :
-// The quick brown fox jumps over the lazy dog.
+// 5
+// 100 89 95 56 66
 // Output 1 :
-// 4.000
+// 5
 // Input 2 :
-// The future is gonna be okay
+// 3
+// 99 100 90
 // Output 2 :
-// 3.667
-// Input 3 :
-// AB CDEF
-// Output 3 :
-// 3.000
+// 1
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
-// You are using GCC
+
 #include <iostream>
-#include <iomanip>
-#include <sstream>
-#include <string>
+#include <algorithm> // For std::sort
+#include <climits>   // For INT_MAX
 
 using namespace std;
 
-double calculateAverageWordLength(const string& sentence) {
-    istringstream stream(sentence);
-    string word;
-    int totalChars = 0;
-    int wordCount = 0;
+int findSmallestDifference(int* scores, int n) {
+    // Sort the array
+    sort(scores, scores + n);
 
-    while (stream >> word) {
-        totalChars += word.length();
-        wordCount++;
+    // Initialize the minimum difference to a large value
+    int minDiff = INT_MAX;
+
+    // Find the smallest difference
+    for (int i = 1; i < n; ++i) {
+        int diff = *(scores + i) - *(scores + i - 1);
+        if (diff < minDiff) {
+            minDiff = diff;
+        }
     }
 
-    if (wordCount == 0) {
-        return 0.0; // Avoid division by zero
-    }
-
-    return static_cast<double>(totalChars) / wordCount;
+    return minDiff;
 }
 
 int main() {
-    string sentence;
-    getline(cin, sentence); // Read the entire line of input
+    int n;
+    cin >> n;
+    
+    int* scores = new int[n];
 
-    double averageLength = calculateAverageWordLength(sentence);
+    // Read the scores
+    for (int i = 0; i < n; ++i) {
+        cin >> scores[i];
+    }
 
-    cout << fixed << setprecision(3) << averageLength << endl;
+    // Find the smallest difference
+    int smallestDifference = findSmallestDifference(scores, n);
+
+    // Output the result
+    cout << smallestDifference << endl;
+
+    delete[] scores; // Free the allocated memory
 
     return 0;
 }
