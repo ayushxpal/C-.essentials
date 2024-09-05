@@ -1,27 +1,48 @@
 #include<iostream>
 using namespace std;
-int main()
+struct Node
 {
-    int a[100], i, n, k, item;
-    cout<<"how many no. to store in array";
-    cin>>n;
-    cout<<"Enter the no. ";
-    for(i=0;i<=n-1;i++)
-    cin>>a[i];
-    cout<<"enter the no and its position";
+    int data;
+    Node *next;
+};
+Node *head=NULL;
+void insert(int n){
+    Node *newNode=new Node;
+    newNode->data=n;
+    newNode->next=head;
+    head=newNode;
+}
+void insertAtEnd(int n)
+{
+    Node *newNode=new Node;
+    newNode->data=n;
+    if(head==NULL){
+        head=newNode;
+    }
+    Node *temp=head;
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
+    temp->next=newNode;
+}
+void insertAtPosition(int pos,int n){
+    Node *newNode=new Node;
+    newNode->data=n;
 
-    
-    cin>>item>>k;
-    k=k-1;
-    for(i=n-1;i>=k;i--)
-    {
-        a[i+1]=a[i];
+}
+void print(){
+    cout<<"Data element in singly linked list are: ";
+    Node *temp=head;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp=temp->next;
     }
-    a[k]=item;
-    cout<<"contents of the array\n";
-    for(i=0;i<=n;i++)
-    {
-        cout<<a[i]<<" ";
-    }
+}
+int main(){
+    insert(30);
+    insert(40);
+    insertAtEnd(50);
+    insertAtPosition(2,35);
+    print();
     return 0;
 }

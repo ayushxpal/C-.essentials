@@ -3,65 +3,61 @@
 
 
 
-// Alex is a math enthusiast who loves playing with numbers. One day, Alex came across a challenge to write a program that reverses a given number. Intrigued by the challenge, Alex decides to write a program using reference variables.
-
-
-
-// Can you help Alex by creating a program that reverses the number using reference variables?
-
-
-
-// Function Name: void reverseNumber
-
-
-
-// Note: This is a sample question asked in a HCL interview.
+// You are tasked with creating a program to manage birthday dates. You need to implement a class called Date that represents a date with day, month, and year components. Additionally, you should use a pointer to an object to perform date operations.
 
 // Input format :
-// The input consists of a positive integer N.
+// The first line of input consists of an integer representing the day of the birthday.
+
+// The second line of input consists of an integer representing the month of the birthday.
+
+// The next line of input consists of an integer representing the year of the birthday.
 
 // Output format :
-// The output displays the reversed number of N.
+// The program should display the collected birthday data in the following format: The date is day/month/year".
 
 // Code constraints :
-// 1 ≤ N ≤ 107
+// 1 <= Day <=31
+
+// 1 <= Month <= 12
+
+// 1500 <= Year <= 2040
 
 // Sample test cases :
 // Input 1 :
-// 157
+// 13 
+// 10 
+// 2000
 // Output 1 :
-// 751
+// The date is 13/10/2000
 // Input 2 :
-// 120
-// Output 2 :
 // 21
+// 05
+// 1998
+// Output 2 :
+// The date is 21/5/1998
+// Input 3 :
+// 08
+// 06
+// 2000
+// Output 3 :
+// The date is 8/6/2000
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
-
-// You are using GCC
 #include <iostream>
 using namespace std;
 
-// Function to reverse the number using a reference variable
-void reverseNumber(int &N) {
-    int reversedNumber = 0;
-    while (N > 0) {
-        int digit = N % 10;
-        reversedNumber = reversedNumber * 10 + digit;
-        N /= 10;
-    }
-    N = reversedNumber;  // Update the original number with the reversed result
-}
-
 int main() {
-    int N;
-    cin >> N;
+    int day;  
+    int month ; 
+    int year; 
+    
+    cin>>day>>month>>year;
 
-    reverseNumber(N);  // Pass the number by reference to reverse it
-
-    cout << N << endl;  // Print the reversed number
+    cout << "The date is " << day << "/" << month << "/" << year << endl;
+    
+  string p = "&*";
 
     return 0;
 }
