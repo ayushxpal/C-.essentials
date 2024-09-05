@@ -1,26 +1,8 @@
-// Single File Programming Question
-// Problem Statement
-
-
-
-// Vijay wants to write a program for the multiplication of square matrices. Help him write the code.
-
-
-
-// Note: Square matrices mean the number of rows equals the number of columns in the given matrix.
-
-// Input format :
-// The first line of input consists of the matrix size M.
-
-// The next M lines of input consist of the M elements in each line separated by space representing the first matrix.
-
-// After being separated by a new line, the next M lines of input consist of the M elements in each line separated by space representing the second matrix.
-
 // Output format :
-// The output should display the product of the two matrices in a M x M format.
+// The program will output the following in separate lines:
 
-// Each element of the matrix should be separated by a tab space (\t).
-
+// The total sum of all expenses as a double value rounded to two decimal places.
+// The total sum of expenses for the specific category as a double value rounded to two decimal places.
 
 
 // Refer to the sample output for the formatting specifications.
@@ -28,87 +10,79 @@
 // Code constraints :
 // In this scenario, the test cases fall under the following constraints:
 
-// 1 ≤ M ≤ 10
+// 1 ≤ n ≤ 10
 
-// 0 ≤ elements ≤ 100
+// 1.0 ≤ expense ≤ 10000.0
 
 // Sample test cases :
 // Input 1 :
-// 3
-// 2 3 2
-// 3 2 3
-// 3 3 3
-
-// 4 5 6
-// 2 3 1
-// 1 2 3
+// 4
+// Food 25.50 2023-01-15
+// Transportation 12.75 2023-01-16
+// Shopping 50.00 2023-01-18
+// Food 15.25 2023-01-20
+// Food
 // Output 1 :
-// The product of the two matrices is:
-// 16	23	21	
-// 19	27	29	
-// 21	30	30	
-// Input 2 :
-// 2
-// 2 2
-// 2 3
-
-// 5 6
-// 7 8
-// Output 2 :
-// The product of the two matrices is:
-// 24	28	
-// 31	36	
+// Total Expenses: 103.50
+// Food: 40.75
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
+
+// You are using GCC
 #include <iostream>
-#include <iomanip> // For setting output precision
+#include <string>
+#include <vector>
+#include <iomanip>
+
 using namespace std;
 
-// Function to multiply two matrices
-void multiplyMatrices(int M, int A[][10], int B[][10], int result[][10]) {
-    for (int i = 0; i < M; ++i) {
-        for (int j = 0; j < M; ++j) {
-            result[i][j] = 0;
-            for (int k = 0; k < M; ++k) {
-                result[i][j] += A[i][k] * B[k][j];
-            }
-        }
-    }
-}
+class Expense {
+public:
+    string category;
+    double amount;
+    string date;
+
+    Expense(const string& cat, double amt, const string& dt)
+        : category(cat), amount(amt), date(dt) {}
+};
 
 int main() {
-    int M;
-    cin >> M;
+    int n;
+    cin >> n;
+    cin.ignore(); // To ignore the newline character after the integer input
 
-    int A[10][10], B[10][10], result[10][10];
+    vector<Expense> expenses;
+    
+    // Read expenses
+    for (int i = 0; i < n; ++i) {
+        string category;
+        double amount;
+        string date;
+        cin >> category >> amount >> date;
+        expenses.emplace_back(category, amount, date);
+    }
 
-    // Reading the first matrix
-    for (int i = 0; i < M; ++i) {
-        for (int j = 0; j < M; ++j) {
-            cin >> A[i][j];
+    string targetCategory;
+    cin.ignore(); // To ignore the newline character after the last input
+    getline(cin, targetCategory);
+
+    double totalExpenses = 0.0;
+    double categoryTotal = 0.0;
+
+    // Calculate totals
+    for (const auto& exp : expenses) {
+        totalExpenses += exp.amount;
+        if (exp.category == targetCategory) {
+            categoryTotal += exp.amount;
         }
     }
 
-    // Reading the second matrix
-    for (int i = 0; i < M; ++i) {
-        for (int j = 0; j < M; ++j) {
-            cin >> B[i][j];
-        }
-    }
-
-    // Multiply the matrices
-    multiplyMatrices(M, A, B, result);
-
-    // Output the result matrix
-    cout << "The product of the two matrices is:" << endl;
-    for (int i = 0; i < M; ++i) {
-        for (int j = 0; j < M; ++j) {
-            cout << result[i][j] << "\t";
-        }
-        cout << endl;
-    }
+    // Output results
+    cout << fixed << setprecision(2);
+    cout << "Total Expenses: " << totalExpenses << endl;
+    cout << targetCategory << ": " << categoryTotal << endl;
 
     return 0;
 }
