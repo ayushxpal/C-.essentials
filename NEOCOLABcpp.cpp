@@ -3,94 +3,104 @@
 
 
 
-// Imagine you are developing a ticketing system for a theater. As part of the system, you need to implement a feature that allows customers to search for available seats based on their preferences. The seat availability data is stored in a 1D array.
-
-
-
-// Create a class called ArraySearch and calculate the seat availability. Write the code for the same.
-
-
-
-// Note: This is a sample question asked in a HCL interview.
+// Akil is a sales manager who wants to evaluate the performance of his sales team. He wants to create a program that allows him to enter the details of a salesperson, including their name and the total sales achieved over a specific number of months. Calculate the average sales per month and display the salesperson's information using a pointer to the data member.
 
 // Input format :
-// The first line of the input consists of the number of seats, n.
+// The first line of input consists of the salesperson's name as a string.
 
-// The next line of input consists of n space-separated seat numbers as integers.
+// The second line of input consists of the number of months as an integer.
 
-// The last line of input is the seat number to be searched (m).
+// For each month, the sales achieved during that month are represented as an integer number.
 
 // Output format :
-// The output prints the status of the seat availability.
+// The first line of output consists of the details of the salesperson as: "Salesperson Details:"
+
+// The second line of output contains the salesperson's name.
+
+// The third line of output contains the total sales as an integer.
+
+// The last line of output contains the average sales as an integer.
 
 
 
-// Refer to the sample output for the formatting specifications.
+// Refer to the sample output for formatting specifications.
 
 // Code constraints :
 // In this scenario, the test cases fall under the following constraints:
 
-// 1 ≤ n ≤ 10
-
-// 1 ≤ seat numbers ≤ 100
-
-// 1 ≤ m ≤ 100
+// 1 ≤ number of months ≤ 10
 
 // Sample test cases :
 // Input 1 :
+// John
 // 5
-// 50 40 10 20 30
-// 20
+// 1000 2000 1500 3000 2500
 // Output 1 :
-// Seat is available
+// Salesperson Details:
+// Name: John
+// Total Sales: 10000
+// Average Sales: 2000
 // Input 2 :
-// 5
-// 50 40 30 10 20
-// 80
+// Emily
+// 3
+// 500 750 900
 // Output 2 :
-// Seat is not available
+// Salesperson Details:
+// Name: Emily
+// Total Sales: 2150
+// Average Sales: 716
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
+// You are using GCC
 #include <iostream>
+#include <string>
 using namespace std;
 
-class ArraySearch {
+class Salesperson {
 public:
-    int seats[10];  // Array to store seat numbers
-    int n;          // Number of seats
+    string name;
+    int totalSales;
+    int months;
 
-    void inputSeats() {
-        cin >> n;
-        for (int i = 0; i < n; i++) {
-            cin >> seats[i];
+    void calculateTotalSales(int sales[]) {
+        totalSales = 0;
+        for (int i = 0; i < months; i++) {
+            totalSales += sales[i];
         }
     }
 
-    bool searchSeat(int seatNumber) {
-        for (int i = 0; i < n; i++) {
-            if (seats[i] == seatNumber) {
-                return true;  // Seat found
-            }
-        }
-        return false;  // Seat not found
+    void displaySalesDetails() {
+        int Salesperson::*totalSalesPtr = &Salesperson::totalSales;
+        cout << "Salesperson Details:" << endl;
+        cout << "Name: " << name << endl;
+        cout << "Total Sales: " << this->*totalSalesPtr << endl;
+        cout << "Average Sales: " << (this->*totalSalesPtr) / months << endl;
     }
 };
 
 int main() {
-    ArraySearch as;
-    as.inputSeats();  // Input seat numbers
-
-    int m;  // Seat number to search
-    cin >> m;
-
-    if (as.searchSeat(m)) {
-        cout << "Seat is available";
-    } else {
-        cout << "Seat is not available";
+    Salesperson sp;
+    
+    // Input salesperson's name
+    getline(cin, sp.name);
+    
+    // Input number of months
+    cin >> sp.months;
+    
+    // Input sales data
+    int sales[10];  // Array to store sales data (up to 10 months)
+    for (int i = 0; i < sp.months; i++) {
+        cin >> sales[i];
     }
+
+    // Calculate total sales
+    sp.calculateTotalSales(sales);
+    
+    // Display sales details
+    sp.displaySalesDetails();
 
     return 0;
 }
