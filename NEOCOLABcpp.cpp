@@ -3,80 +3,89 @@
 
 
 
-// Kate is analyzing a series of measurements and needs to determine how many of these measurements fall outside a specified acceptable range. Given a list of measurement values, write a program to count and display the number of measurements that are either below the lower limit or above the upper limit of the specified range.
+// Anthony needs to develop a program to sort an array of integers and determine if all the elements are identical. Create a class named ArraySorter that reads an array of 10 integers, sorts them in ascending order if they are not all the same, and prints the sorted array. 
+
+
+
+// If all the numbers are identical, the program should output a message indicating that all numbers are the same.
 
 // Input format :
-// The first line of input consists of an integer X, representing the number of measurements.
-
-// The second line consists of X space-separated integers, representing the measurement values.
-
-// The third line consists of two space-separated integers L and R, defining the acceptable range.
+// The input consists of an array of 10 integers separated by space.
 
 // Output format :
-// The output prints an integer, representing the count of measurements that fall outside the specified range defined by L and R.
+// If the numbers are not the same, the output displays "Arranged elements are: " followed by the input array sorted array in ascending order separated by space.
 
-// If there are no such elements, print "0".
+// If the numbers are the same, the output displays "All numbers are the same".
 
 
 
-// Refer to the sample output for formatting specifications.
+// Refer to the sample output for the formatting specifications.
 
 // Code constraints :
-// In this scenario, the test cases fall under the following constraints:
-
-// 2 ≤ X ≤ 10
-
-// 1 ≤ measurement value ≤ 100
-
-// L < R
-
-// L and R are not inclusive.
+// -105 ≤ each element ≤ 105
 
 // Sample test cases :
 // Input 1 :
-// 5
-// 13 24 15 26 34
-// 11 16
+// 10 12 13 234 45 34 67 78 76 12
 // Output 1 :
-// 3
+// Arranged elements are: 10 12 12 13 34 45 67 76 78 234 
 // Input 2 :
-// 6
-// 45 57 89 53 90 98
-// 45 89
+// 12 12 12 12 12 12 12 12 12 12
 // Output 2 :
-// 2
+// All numbers are the same
 // Input 3 :
-// 3
-// 43 56 67
-// 43 68
+// 1 2 -3 -4 5 -6 7 -8 9 10
 // Output 3 :
-// 0
+// Arranged elements are: -8 -6 -4 -3 1 2 5 7 9 10 
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
+
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
-int main() {
-    int X;  // Number of measurements
-    cin >> X;
+class ArraySorter {
+public:
+    int arr[10];  // Array to store 10 integers
 
-    int measurements[10];  // Array to store the measurements (up to 10 as per constraints)
-    for (int i = 0; i < X; i++) {
-        cin >> measurements[i];
-    }
-
-    int L, R;  // Lower and upper limit of the acceptable range
-    cin >> L >> R;
-
-    int count = 0;  // Counter for measurements outside the range
-    for (int i = 0; i < X; i++) {
-        if (measurements[i] < L || measurements[i] > R) {  // Exclude the boundary values
-            count++;  // Increment if measurement is strictly outside the acceptable range
+    void inputArray() {
+        for (int i = 0; i < 10; i++) {
+            cin >> arr[i];
         }
     }
 
-    cout << count;  // Output the count
+    bool allElementsIdentical() {
+        for (int i = 1; i < 10; i++) {
+            if (arr[i] != arr[0]) {
+                return false;  // Not all elements are identical
+            }
+        }
+        return true;  // All elements are identical
+    }
+
+    void sortArray() {
+        sort(arr, arr + 10);  // Sort the array in ascending order
+    }
+
+    void displayResults() {
+        if (allElementsIdentical()) {
+            cout << "All numbers are the same";
+        } else {
+            sortArray();
+            cout << "Arranged elements are: ";
+            for (int i = 0; i < 10; i++) {
+                cout << arr[i];
+                if (i < 9) cout << " ";  // Print space between elements
+            }
+        }
+    }
+};
+
+int main() {
+    ArraySorter as;
+    as.inputArray();  // Input array elements
+    as.displayResults();  // Display sorted results or identical elements message
     return 0;
 }
