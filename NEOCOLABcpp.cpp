@@ -3,101 +3,111 @@
 
 
 
-// Rina is managing the inventory for a library, where each row of a 2D matrix represents the number of different genres of books available on each shelf. To get a better overview, she wants to replace each number in a row with the sum of all numbers in that row. 
+// Vijay wants to write a program for the multiplication of square matrices. Help him write the code.
 
 
 
-// Write a program to help Rina transform the matrix accordingly.
+// Note: Square matrices mean the number of rows equals the number of columns in the given matrix.
 
 // Input format :
-// The first line of input consists of an integer T, representing the number of test cases.
+// The first line of input consists of the matrix size M.
 
-// For each test case:
+// The next M lines of input consist of the M elements in each line separated by space representing the first matrix.
 
-// The first line contains two integers R and C, representing the number of rows and columns.
-// The next R lines each contain C space-separated integers, representing the count of books of a specific genre on a shelf.
+// After being separated by a new line, the next M lines of input consist of the M elements in each line separated by space representing the second matrix.
+
 // Output format :
-// For each test case, the output prints the transformed 2D matrix where each element in a row is replaced with the sum of the elements in that row.
+// The output should display the product of the two matrices in a M x M format.
+
+// Each element of the matrix should be separated by a tab space (\t).
 
 
 
-// Refer to the sample output for formatting specifications.
+// Refer to the sample output for the formatting specifications.
 
 // Code constraints :
-// The given test cases fall under the following constraints:
+// In this scenario, the test cases fall under the following constraints:
 
-// 1 ≤ T ≤ 10
+// 1 ≤ M ≤ 10
 
-// 1 ≤ R, C ≤ 10
-
-// 0 ≤ books count ≤ 100
+// 0 ≤ elements ≤ 100
 
 // Sample test cases :
 // Input 1 :
-// 2 
-// 3 4
-// 8 2 4 9
-// 4 5 6 1
-// 7 8 9 3
-// 2 5
-// 1 2 3 5 7
-// 3 4 8 9 6
+// 3
+// 2 3 2
+// 3 2 3
+// 3 3 3
+
+// 4 5 6
+// 2 3 1
+// 1 2 3
 // Output 1 :
-// 23 23 23 23 
-// 16 16 16 16 
-// 27 27 27 27 
-// 18 18 18 18 18 
-// 30 30 30 30 30 
+// The product of the two matrices is:
+// 16	23	21	
+// 19	27	29	
+// 21	30	30	
 // Input 2 :
-// 1
-// 3 3 
-// 48 65 83 
-// 45 21 76 
-// 71 32 98 
+// 2
+// 2 2
+// 2 3
+
+// 5 6
+// 7 8
 // Output 2 :
-// 196 196 196 
-// 142 142 142 
-// 201 201 201 
+// The product of the two matrices is:
+// 24	28	
+// 31	36	
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
-
 #include <iostream>
-#include <vector>
+#include <iomanip> // For setting output precision
 using namespace std;
 
-void processTestCase(int R, int C) {
-    vector<vector<int>> matrix(R, vector<int>(C));
-    vector<int> rowSum(R);
-
-    // Reading the matrix
-    for (int i = 0; i < R; ++i) {
-        int sum = 0;
-        for (int j = 0; j < C; ++j) {
-            cin >> matrix[i][j];
-            sum += matrix[i][j];
+// Function to multiply two matrices
+void multiplyMatrices(int M, int A[][10], int B[][10], int result[][10]) {
+    for (int i = 0; i < M; ++i) {
+        for (int j = 0; j < M; ++j) {
+            result[i][j] = 0;
+            for (int k = 0; k < M; ++k) {
+                result[i][j] += A[i][k] * B[k][j];
+            }
         }
-        rowSum[i] = sum;
-    }
-
-    // Printing the transformed matrix
-    for (int i = 0; i < R; ++i) {
-        for (int j = 0; j < C; ++j) {
-            cout << rowSum[i] << " ";
-        }
-        cout << endl;
     }
 }
 
 int main() {
-    int T;  // Number of test cases
-    cin >> T;
+    int M;
+    cin >> M;
 
-    while (T--) {
-        int R, C;
-        cin >> R >> C;
-        processTestCase(R, C);
+    int A[10][10], B[10][10], result[10][10];
+
+    // Reading the first matrix
+    for (int i = 0; i < M; ++i) {
+        for (int j = 0; j < M; ++j) {
+            cin >> A[i][j];
+        }
+    }
+
+    // Reading the second matrix
+    for (int i = 0; i < M; ++i) {
+        for (int j = 0; j < M; ++j) {
+            cin >> B[i][j];
+        }
+    }
+
+    // Multiply the matrices
+    multiplyMatrices(M, A, B, result);
+
+    // Output the result matrix
+    cout << "The product of the two matrices is:" << endl;
+    for (int i = 0; i < M; ++i) {
+        for (int j = 0; j < M; ++j) {
+            cout << result[i][j] << "\t";
+        }
+        cout << endl;
     }
 
     return 0;
