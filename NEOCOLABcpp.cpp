@@ -3,54 +3,52 @@
 
 
 
-// Kate is analyzing a series of measurements and needs to determine how many of these measurements fall outside a specified acceptable range. Given a list of measurement values, write a program to count and display the number of measurements that are either below the lower limit or above the upper limit of the specified range.
+// Imagine you are developing a ticketing system for a theater. As part of the system, you need to implement a feature that allows customers to search for available seats based on their preferences. The seat availability data is stored in a 1D array.
+
+
+
+// Create a class called ArraySearch and calculate the seat availability. Write the code for the same.
+
+
+
+// Note: This is a sample question asked in a HCL interview.
 
 // Input format :
-// The first line of input consists of an integer X, representing the number of measurements.
+// The first line of the input consists of the number of seats, n.
 
-// The second line consists of X space-separated integers, representing the measurement values.
+// The next line of input consists of n space-separated seat numbers as integers.
 
-// The third line consists of two space-separated integers L and R, defining the acceptable range.
+// The last line of input is the seat number to be searched (m).
 
 // Output format :
-// The output prints an integer, representing the count of measurements that fall outside the specified range defined by L and R.
-
-// If there are no such elements, print "0".
+// The output prints the status of the seat availability.
 
 
 
-// Refer to the sample output for formatting specifications.
+// Refer to the sample output for the formatting specifications.
 
 // Code constraints :
 // In this scenario, the test cases fall under the following constraints:
 
-// 2 ≤ X ≤ 10
+// 1 ≤ n ≤ 10
 
-// 1 ≤ measurement value ≤ 100
+// 1 ≤ seat numbers ≤ 100
 
-// L < R
-
-// L and R are not inclusive.
+// 1 ≤ m ≤ 100
 
 // Sample test cases :
 // Input 1 :
 // 5
-// 13 24 15 26 34
-// 11 16
+// 50 40 10 20 30
+// 20
 // Output 1 :
-// 3
+// Seat is available
 // Input 2 :
-// 6
-// 45 57 89 53 90 98
-// 45 89
+// 5
+// 50 40 30 10 20
+// 80
 // Output 2 :
-// 2
-// Input 3 :
-// 3
-// 43 56 67
-// 43 68
-// Output 3 :
-// 0
+// Seat is not available
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
@@ -59,25 +57,40 @@
 #include <iostream>
 using namespace std;
 
-int main() {
-    int X;  // Number of measurements
-    cin >> X;
+class ArraySearch {
+public:
+    int seats[10];  // Array to store seat numbers
+    int n;          // Number of seats
 
-    int measurements[10];  // Array to store the measurements (up to 10 as per constraints)
-    for (int i = 0; i < X; i++) {
-        cin >> measurements[i];
-    }
-
-    int L, R;  // Lower and upper limit of the acceptable range
-    cin >> L >> R;
-
-    int count = 0;  // Counter for measurements outside the range
-    for (int i = 0; i < X; i++) {
-        if (measurements[i] < L || measurements[i] > R) {  // Exclude the boundary values
-            count++;  // Increment if measurement is strictly outside the acceptable range
+    void inputSeats() {
+        cin >> n;
+        for (int i = 0; i < n; i++) {
+            cin >> seats[i];
         }
     }
 
-    cout << count;  // Output the count
+    bool searchSeat(int seatNumber) {
+        for (int i = 0; i < n; i++) {
+            if (seats[i] == seatNumber) {
+                return true;  // Seat found
+            }
+        }
+        return false;  // Seat not found
+    }
+};
+
+int main() {
+    ArraySearch as;
+    as.inputSeats();  // Input seat numbers
+
+    int m;  // Seat number to search
+    cin >> m;
+
+    if (as.searchSeat(m)) {
+        cout << "Seat is available";
+    } else {
+        cout << "Seat is not available";
+    }
+
     return 0;
 }
