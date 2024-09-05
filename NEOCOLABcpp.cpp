@@ -3,88 +3,79 @@
 
 
 
-// You are tasked with creating a program for an online shop to calculate the total number of items purchased for a single product. The program should take the product name and the number of items purchased by three persons and then calculate and display the total number of items for that product using member functions.
+// You have been tasked with creating a program that calculates the average word length in a given sentence. Write a function calculateAverageWordLength that takes a sentence (string) as input and returns the average length of the words in the sentence.
+
+
+
+// The average word length is calculated by dividing the total number of characters in all words by the number of words in the sentence.
+
+
+
+// Company Tags: mPhasis
 
 // Input format :
-// The first line consists of a string representing the product name.
-
-// The second line consists of three integers a, b, and c representing the number of items purchased by three different persons.
+// The input consists of a sentence as space-separated strings.
 
 // Output format :
-// The program prints the product name and the sum of the total number of items purchased for the product in separate lines.
+// The program outputs the average length of the words in the sentence as a double value rounded off to three decimal places.
 
 
 
-// Refer to the sample output for the exact format.
+// Refer to the sample output for formatting specifications.
 
 // Code constraints :
-// In this scenario, the test cases fall under the following constraints:
-
-// 1 ≤ a, b, c ≤ 1000
+// 1 ≤ Length of the sentence ≤ 1000
 
 // Sample test cases :
 // Input 1 :
-// Phone
-// 2 5 4
+// The quick brown fox jumps over the lazy dog.
 // Output 1 :
-// Product Name: Phone
-// Total items: 11
+// 4.000
 // Input 2 :
-// Shirt
-// 278 499 790
+// The future is gonna be okay
 // Output 2 :
-// Product Name: Shirt
-// Total items: 1567
+// 3.667
+// Input 3 :
+// AB CDEF
+// Output 3 :
+// 3.000
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
+// You are using GCC
 #include <iostream>
+#include <iomanip>
+#include <sstream>
 #include <string>
+
 using namespace std;
 
-class Shop {
-private:
-    string productName;
-    int items1, items2, items3;
+double calculateAverageWordLength(const string& sentence) {
+    istringstream stream(sentence);
+    string word;
+    int totalChars = 0;
+    int wordCount = 0;
 
-public:
-    // Function to set the product name and items purchased by three persons
-    void setData(const string &name, int a, int b, int c) {
-        productName = name;
-        items1 = a;
-        items2 = b;
-        items3 = c;
+    while (stream >> word) {
+        totalChars += word.length();
+        wordCount++;
     }
 
-    // Function to calculate the total number of items
-    int calculateTotalItems() const {
-        return items1 + items2 + items3;
+    if (wordCount == 0) {
+        return 0.0; // Avoid division by zero
     }
 
-    // Function to display the product name and total items
-    void display() const {
-        cout << "Product Name: " << productName << endl;
-        cout << "Total items: " << calculateTotalItems() << endl;
-    }
-};
+    return static_cast<double>(totalChars) / wordCount;
+}
 
 int main() {
-    Shop shop;
-    
-    string productName;
-    int a, b, c;
+    string sentence;
+    getline(cin, sentence); // Read the entire line of input
 
-    // Input the product name
-    getline(cin, productName);
-    // Input the number of items purchased by three persons
-    cin >> a >> b >> c;
+    double averageLength = calculateAverageWordLength(sentence);
 
-    // Set the data in the Shop class
-    shop.setData(productName, a, b, c);
-
-    // Display the results
-    shop.display();
+    cout << fixed << setprecision(3) << averageLength << endl;
 
     return 0;
 }
