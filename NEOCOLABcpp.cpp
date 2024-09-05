@@ -3,89 +3,102 @@
 
 
 
-// Anthony needs to develop a program to sort an array of integers and determine if all the elements are identical. Create a class named ArraySorter that reads an array of 10 integers, sorts them in ascending order if they are not all the same, and prints the sorted array. 
+// Rina is managing the inventory for a library, where each row of a 2D matrix represents the number of different genres of books available on each shelf. To get a better overview, she wants to replace each number in a row with the sum of all numbers in that row. 
 
 
 
-// If all the numbers are identical, the program should output a message indicating that all numbers are the same.
+// Write a program to help Rina transform the matrix accordingly.
 
 // Input format :
-// The input consists of an array of 10 integers separated by space.
+// The first line of input consists of an integer T, representing the number of test cases.
 
+// For each test case:
+
+// The first line contains two integers R and C, representing the number of rows and columns.
+// The next R lines each contain C space-separated integers, representing the count of books of a specific genre on a shelf.
 // Output format :
-// If the numbers are not the same, the output displays "Arranged elements are: " followed by the input array sorted array in ascending order separated by space.
-
-// If the numbers are the same, the output displays "All numbers are the same".
+// For each test case, the output prints the transformed 2D matrix where each element in a row is replaced with the sum of the elements in that row.
 
 
 
-// Refer to the sample output for the formatting specifications.
+// Refer to the sample output for formatting specifications.
 
 // Code constraints :
-// -105 ≤ each element ≤ 105
+// The given test cases fall under the following constraints:
+
+// 1 ≤ T ≤ 10
+
+// 1 ≤ R, C ≤ 10
+
+// 0 ≤ books count ≤ 100
 
 // Sample test cases :
 // Input 1 :
-// 10 12 13 234 45 34 67 78 76 12
+// 2 
+// 3 4
+// 8 2 4 9
+// 4 5 6 1
+// 7 8 9 3
+// 2 5
+// 1 2 3 5 7
+// 3 4 8 9 6
 // Output 1 :
-// Arranged elements are: 10 12 12 13 34 45 67 76 78 234 
+// 23 23 23 23 
+// 16 16 16 16 
+// 27 27 27 27 
+// 18 18 18 18 18 
+// 30 30 30 30 30 
 // Input 2 :
-// 12 12 12 12 12 12 12 12 12 12
+// 1
+// 3 3 
+// 48 65 83 
+// 45 21 76 
+// 71 32 98 
 // Output 2 :
-// All numbers are the same
-// Input 3 :
-// 1 2 -3 -4 5 -6 7 -8 9 10
-// Output 3 :
-// Arranged elements are: -8 -6 -4 -3 1 2 5 7 9 10 
+// 196 196 196 
+// 142 142 142 
+// 201 201 201 
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
 #include <iostream>
-#include <algorithm>
+#include <vector>
 using namespace std;
 
-class ArraySorter {
-public:
-    int arr[10];  // Array to store 10 integers
+void processTestCase(int R, int C) {
+    vector<vector<int>> matrix(R, vector<int>(C));
+    vector<int> rowSum(R);
 
-    void inputArray() {
-        for (int i = 0; i < 10; i++) {
-            cin >> arr[i];
+    // Reading the matrix
+    for (int i = 0; i < R; ++i) {
+        int sum = 0;
+        for (int j = 0; j < C; ++j) {
+            cin >> matrix[i][j];
+            sum += matrix[i][j];
         }
+        rowSum[i] = sum;
     }
 
-    bool allElementsIdentical() {
-        for (int i = 1; i < 10; i++) {
-            if (arr[i] != arr[0]) {
-                return false;  // Not all elements are identical
-            }
+    // Printing the transformed matrix
+    for (int i = 0; i < R; ++i) {
+        for (int j = 0; j < C; ++j) {
+            cout << rowSum[i] << " ";
         }
-        return true;  // All elements are identical
+        cout << endl;
     }
-
-    void sortArray() {
-        sort(arr, arr + 10);  // Sort the array in ascending order
-    }
-
-    void displayResults() {
-        if (allElementsIdentical()) {
-            cout << "All numbers are the same";
-        } else {
-            sortArray();
-            cout << "Arranged elements are: ";
-            for (int i = 0; i < 10; i++) {
-                cout << arr[i];
-                if (i < 9) cout << " ";  // Print space between elements
-            }
-        }
-    }
-};
+}
 
 int main() {
-    ArraySorter as;
-    as.inputArray();  // Input array elements
-    as.displayResults();  // Display sorted results or identical elements message
+    int T;  // Number of test cases
+    cin >> T;
+
+    while (T--) {
+        int R, C;
+        cin >> R >> C;
+        processTestCase(R, C);
+    }
+
     return 0;
 }
