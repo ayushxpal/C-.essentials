@@ -3,99 +3,111 @@
 
 
 
-// Janu enjoys learning puzzles from her childhood. She is given an rxc matrix and asked to sum the elements in each row. She needs to attain the sum of elements in a matrix. Create a class named MatrixSum to handle the same.
+// John and Michael play a game of multiplication. The game starts with an integer p initialized to 1. They take turns multiplying p by one of the numbers from 1 to 9 in a sequence. John always starts by multiplying p by 1 and then passes the result to Michael. Michael multiplies the number by 2 and passes the result back to John. John then multiplies by 3, and so on, increasing the multiplier by 1 with each turn.
+
+
+
+// Before the game starts, they draw an integer N. The winner is the player who first reaches or exceeds p >= N during their turn. Write a class MultiplicationGame with a member function void game(int) to simulate this scenario and determine the winner.
+
+
+
+// Example 
+
+
+
+// Input: N=10
+
+// Output:
+
+// 10 Michael wins
+
+
+
+// Explanation
+
+// If N is 10:
+
+// John starts with p = 1, multiplies by 1 (John's turn), resulting in p = 1.
+
+// Michael multiplies p = 1 by 2, resulting in p = 2.
+
+// John multiplies p = 2 by 3, resulting in p = 6.
+
+// Michael multiplies p = 6 by 4, resulting in p = 24.
+
+// Since 24 is greater than 10, Michael wins.
+
+
+
+// Company Tags: Accenture 
 
 // Input format :
-// The first line contains an integer r, representing the number of rows in the matrix.
-
-// The second line contains an integer c, representing the number of columns in the matrix.
-
-// Following these, there are r lines, each containing c integers. These integers represent the elements of the matrix, row by row.
+// The input consists of an integer N.
 
 // Output format :
-// The output prints elements of each row along with the sum of each row.
+// The output prints the value of N and the name of the winner, separated by a space.
 
 
 
-// Refer to the output for formatting specifications.
+// Refer to the sample outputs for the formatting specifications.
 
 // Code constraints :
 // In this scenario, the test cases fall under the following constraints:
 
-// 1 ≤ r, c ≤ 10
-
-// 0 ≤ elements ≤ 1000
+// 1 ≤ N ≤ 20
 
 // Sample test cases :
 // Input 1 :
-// 2
-// 3
-// 27 38 59
-// 73 88 99
+// 10
 // Output 1 :
-// 27 38 59 SUM: 124
-// 73 88 99 SUM: 260
+// 10 Michael wins
 // Input 2 :
 // 3
-// 4
-// 1 2 3 4
-// 5 6 7 8
-// 9 3 2 4
 // Output 2 :
-// 1 2 3 4 SUM: 10
-// 5 6 7 8 SUM: 26
-// 9 3 2 4 SUM: 18
+// 3 John wins
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 #include <iostream>
-#include <vector>
 using namespace std;
 
-class MatrixSum {
-private:
-    int rows, cols;
-    vector<vector<int>> matrix;
-
+class MultiplicationGame {
 public:
-    // Function to initialize the matrix with given rows and columns
-    void initialize(int r, int c) {
-        rows = r;
-        cols = c;
-        matrix.resize(rows, vector<int>(cols));
-    }
+    void game(int N) {
+        int p = 1;
+        int turn = 1; // Start with John (turn = 1) and Michael (turn = 2)
+        int multiplier = 1;
 
-    // Function to input matrix elements
-    void inputMatrix() {
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < cols; ++j) {
-                cin >> matrix[i][j];
+        while (p < N) {
+            if (turn == 1) {
+                // John's turn
+                p *= multiplier;
+                turn = 2; // Pass the turn to Michael
+            } else {
+                // Michael's turn
+                p *= multiplier;
+                turn = 1; // Pass the turn to John
             }
+            multiplier++;
         }
-    }
 
-    // Function to display the matrix and row sums
-    void displaySums() const {
-        for (int i = 0; i < rows; ++i) {
-            int rowSum = 0;
-            for (int j = 0; j < cols; ++j) {
-                cout << matrix[i][j] << " ";
-                rowSum += matrix[i][j];
-            }
-            cout << "SUM: " << rowSum << endl;
+        if (turn == 1) {
+            // If turn is 1, it means Michael just finished his turn and John was about to play next
+            cout << N << " Michael wins" << endl;
+        } else {
+            // If turn is 2, it means John just finished his turn and Michael was about to play next
+            cout << N << " John wins" << endl;
         }
     }
 };
 
 int main() {
-    int r, c;
-    cin >> r >> c;
+    int N;
+    cin >> N;
 
-    MatrixSum matrixSum;
-    matrixSum.initialize(r, c);
-    matrixSum.inputMatrix();
-    matrixSum.displaySums();
+    MultiplicationGame game;
+    game.game(N);
 
     return 0;
 }
