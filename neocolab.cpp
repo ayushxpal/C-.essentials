@@ -3,148 +3,160 @@
 
 
 
-// Imagine you are developing a contact management application where users can maintain a singly linked list of names. 
+// Kamal wants to create a linked list and perform the following operations on it:
+
+// Insert a node at the beginning of the linked list.
+// Append a node at the end of the linked list.
+// Print the final linked list.
+
+
+// Write a program that takes the number of nodes to be inserted, followed by their values, as input. After inserting the nodes, the program should ask for a new value and append a node with that value at the end of the linked list. Finally, the program should print the contents of the linked list.
 
 
 
-// Initially, users can enter a sequence of names to form a list of contacts. Later, they can insert a new name at a specific position within the list to rearrange their contacts, ensuring the list is updated and displayed correctly.
+// Example
+
+
+
+// Input:
+
+// 5
+
+// 1 2 3 4 5
+
+// 6
+
+
+
+// Output:
+
+// Created Linked list: 5 4 3 2 1
+
+// Final list: 5 4 3 2 1 6
+
+
+
+// Explanation:
+
+// The program first creates a linked list by inserting nodes at the beginning. The input specifies that there are 5 nodes, and their values are 1, 2, 3, 4, and 5. After inserting these nodes, the program asks for a new value, which is 6. It then appends a node with the value 6 at the end of the linked list. Finally, the program prints the contents of the linked list, which are 5, 4, 3, 2, 1, and 6 in that order.
+
+
+
+// Company tags: Capgemini
 
 // Input format :
-// The first line of input consists of an integer n, representing the number of initial names.
+// The first line consists of an integer, n, representing the number of nodes to be initially inserted into the linked list.
 
-// The next n lines each contain a single name, representing the initial list of contacts.
+// The second line of input consists of n space-separated integers, representing the elements of the linked list.
 
-// The last line consists of a name and an integer pos, representing the new contact to be added and its position in the list.
+// The third line of input consists of an integer, m, representing the value of the new node to be inserted at the end of the linked list.
 
 // Output format :
-// The output prints the updated list of contacts after inserting the new contact at the specified position.
+// The first line of output prints "Created Linked list: " followed by the initial linked list elements, separated by space.
+
+// The second line of output prints "Final list: " followed by the final linked list elements, after inserting the new node, separated by space.
 
 
 
 // Refer to the sample output for formatting specifications.
 
 // Code constraints :
-// The given test cases fall under the following constraints:
+// In this scenario, the test cases fall under the following constraints:
 
 // 1 ≤ n ≤ 10
 
-// 1 ≤ length of each name ≤ 100
+// 1 ≤ elements, m ≤ 100
 
 // Sample test cases :
 // Input 1 :
-// 4
-// John
-// Alice
-// Bob
-// Emma
-// Michael 3
+// 5
+// 1 2 3 4 5
+// 6
 // Output 1 :
-// John Alice Michael Bob Emma 
+// Created Linked list: 5 4 3 2 1
+// Final list: 5 4 3 2 1 6
 // Input 2 :
 // 3
-// Emma
-// Daniel
-// Sophia
-// Charlotte 1
+// 10 20 30
+// 40
 // Output 2 :
-// Charlotte Emma Daniel Sophia 
+// Created Linked list: 30 20 10
+// Final list: 30 20 10 40
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
 #include <iostream>
-#include <string>
 using namespace std;
 
 // Node structure for singly linked list
 struct Node {
-    string name;
+    int data;
     Node* next;
 };
 
 // Function to create a new node
-Node* createNode(const string& name) {
+Node* createNode(int data) {
     Node* newNode = new Node();
-    newNode->name = name;
+    newNode->data = data;
     newNode->next = nullptr;
     return newNode;
+}
+
+// Function to insert a node at the beginning
+Node* insertAtBeginning(Node* head, int data) {
+    Node* newNode = createNode(data);
+    newNode->next = head;
+    return newNode;
+}
+
+// Function to append a node at the end
+void appendAtEnd(Node* head, int data) {
+    Node* newNode = createNode(data);
+    Node* temp = head;
+    while (temp->next != nullptr) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
 }
 
 // Function to print the linked list
 void printList(Node* head) {
     Node* temp = head;
     while (temp != nullptr) {
-        cout << temp->name << " ";
+        cout << temp->data << " ";
         temp = temp->next;
     }
     cout << endl;
 }
 
-// Function to insert a new node at a specific position
-Node* insertAtPosition(Node* head, const string& newName, int pos) {
-    Node* newNode = createNode(newName);
-
-    // Special case: inserting at the head of the list
-    if (pos == 0) {
-        newNode->next = head;
-        head = newNode;
-        return head;
-    }
-
-    Node* temp = head;
-    // Traverse to the node just before the insertion position
-    for (int i = 0; temp != nullptr && i < pos - 1; i++) {
-        temp = temp->next;
-    }
-
-    // If the position is valid and temp is not nullptr, insert the new node
-    if (temp != nullptr) {
-        newNode->next = temp->next;
-        temp->next = newNode;
-    } else {
-        // If position is beyond the end of the list, handle accordingly
-        Node* last = head;
-        while (last->next != nullptr) {
-            last = last->next;
-        }
-        last->next = newNode;
-    }
-
-    return head;
-}
-
 int main() {
     int n;
     cin >> n;
-    cin.ignore(); // To ignore the newline character after the integer input
 
     Node* head = nullptr;
-    Node* tail = nullptr;
 
-    // Reading initial names
+    // Reading initial elements and creating the linked list
     for (int i = 0; i < n; i++) {
-        string name;
-        getline(cin, name);
-        Node* newNode = createNode(name);
-        if (head == nullptr) {
-            head = newNode;
-            tail = head;
-        } else {
-            tail->next = newNode;
-            tail = newNode;
-        }
+        int value;
+        cin >> value;
+        head = insertAtBeginning(head, value);
     }
 
-    // Reading the new name and position
-    string newName;
-    int pos;
-    cin >> newName >> pos;
+    // Reading the value for the new node to be appended at the end
+    int m;
+    cin >> m;
 
-    // Inserting the new name at the specified position
-    head = insertAtPosition(head, newName, pos);
+    // Printing the created linked list
+    cout << "Created Linked list: ";
+    printList(head);
 
-    // Printing the updated linked list
+    // Appending the new node at the end
+    appendAtEnd(head, m);
+
+    // Printing the final linked list
+    cout << "Final list: ";
     printList(head);
 
     // Clean up the allocated memory
