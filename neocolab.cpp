@@ -3,27 +3,21 @@
 
 
 
-// Sharon is developing a character editor for a simple text-based game. The editor allows users to maintain a singly linked list of characters representing a sequence of moves in the game. 
+// Imagine you are developing a contact management application where users can maintain a singly linked list of names. 
 
 
 
-// Initially, users input a series of characters to create their move sequence. Later, they can insert a new character at a specific position within the sequence to alter their gameplay strategy, ensuring the list is updated and displayed correctly. Assist Sharon in the task.
-
-
-
-// Company tags: TCS
+// Initially, users can enter a sequence of names to form a list of contacts. Later, they can insert a new name at a specific position within the list to rearrange their contacts, ensuring the list is updated and displayed correctly.
 
 // Input format :
-// The first line contains an integer n, the number of initial characters.
+// The first line of input consists of an integer n, representing the number of initial names.
 
-// The second line consists of n characters, representing the initial move sequence.
+// The next n lines each contain a single name, representing the initial list of contacts.
 
-// The last line contains a character and an integer pos, representing the new move to be added and its position in the sequence.
+// The last line consists of a name and an integer pos, representing the new contact to be added and its position in the list.
 
 // Output format :
-// The first line displays "Current Linked List:" followed by the initial sequence of moves in the next line.
-
-// The third line displays "Updated Linked List:" followed by the updated sequence of moves after inserting the new move at the specified position in the next line.
+// The output prints the updated list of contacts after inserting the new contact at the specified position.
 
 
 
@@ -34,43 +28,45 @@
 
 // 1 ≤ n ≤ 10
 
+// 1 ≤ length of each name ≤ 100
+
 // Sample test cases :
 // Input 1 :
-// 6
-// A B C D E F
-// G 7
+// 4
+// John
+// Alice
+// Bob
+// Emma
+// Michael 3
 // Output 1 :
-// Current Linked List:
-// A B C D E F 
-// Updated Linked List:
-// A B C D E F G 
+// John Alice Michael Bob Emma 
 // Input 2 :
 // 3
-// A O B
-// M 1
+// Emma
+// Daniel
+// Sophia
+// Charlotte 1
 // Output 2 :
-// Current Linked List:
-// A O B 
-// Updated Linked List:
-// M A O B 
+// Charlotte Emma Daniel Sophia 
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
 #include <iostream>
+#include <string>
 using namespace std;
 
 // Node structure for singly linked list
 struct Node {
-    char data;
+    string name;
     Node* next;
 };
 
 // Function to create a new node
-Node* createNode(char data) {
+Node* createNode(const string& name) {
     Node* newNode = new Node();
-    newNode->data = data;
+    newNode->name = name;
     newNode->next = nullptr;
     return newNode;
 }
@@ -79,16 +75,17 @@ Node* createNode(char data) {
 void printList(Node* head) {
     Node* temp = head;
     while (temp != nullptr) {
-        cout << temp->data << " ";
+        cout << temp->name << " ";
         temp = temp->next;
     }
     cout << endl;
 }
 
 // Function to insert a new node at a specific position
-Node* insertAtPosition(Node* head, char newChar, int pos) {
-    Node* newNode = createNode(newChar);
-    
+Node* insertAtPosition(Node* head, const string& newName, int pos) {
+    Node* newNode = createNode(newName);
+
+    // Special case: inserting at the head of the list
     if (pos == 0) {
         newNode->next = head;
         head = newNode;
@@ -96,17 +93,23 @@ Node* insertAtPosition(Node* head, char newChar, int pos) {
     }
 
     Node* temp = head;
+    // Traverse to the node just before the insertion position
     for (int i = 0; temp != nullptr && i < pos - 1; i++) {
         temp = temp->next;
     }
 
-    if (temp == nullptr) {
-        cout << "Position out of bounds" << endl;
-        return head;
+    // If the position is valid and temp is not nullptr, insert the new node
+    if (temp != nullptr) {
+        newNode->next = temp->next;
+        temp->next = newNode;
+    } else {
+        // If position is beyond the end of the list, handle accordingly
+        Node* last = head;
+        while (last->next != nullptr) {
+            last = last->next;
+        }
+        last->next = newNode;
     }
-
-    newNode->next = temp->next;
-    temp->next = newNode;
 
     return head;
 }
@@ -114,15 +117,16 @@ Node* insertAtPosition(Node* head, char newChar, int pos) {
 int main() {
     int n;
     cin >> n;
+    cin.ignore(); // To ignore the newline character after the integer input
 
     Node* head = nullptr;
     Node* tail = nullptr;
 
-    // Reading initial characters
+    // Reading initial names
     for (int i = 0; i < n; i++) {
-        char ch;
-        cin >> ch;
-        Node* newNode = createNode(ch);
+        string name;
+        getline(cin, name);
+        Node* newNode = createNode(name);
         if (head == nullptr) {
             head = newNode;
             tail = head;
@@ -132,20 +136,15 @@ int main() {
         }
     }
 
-    // Printing the current linked list
-    cout << "Current Linked List:" << endl;
-    printList(head);
-
-    // Reading the new character and position
-    char newChar;
+    // Reading the new name and position
+    string newName;
     int pos;
-    cin >> newChar >> pos;
+    cin >> newName >> pos;
 
-    // Inserting the new character at the specified position
-    head = insertAtPosition(head, newChar, pos);
+    // Inserting the new name at the specified position
+    head = insertAtPosition(head, newName, pos);
 
     // Printing the updated linked list
-    cout << "Updated Linked List:" << endl;
     printList(head);
 
     // Clean up the allocated memory
