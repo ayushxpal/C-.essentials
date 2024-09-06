@@ -3,19 +3,27 @@
 
 
 
-// You're a coach managing a list of finishing times for athletes in a race. The times are stored in an array, and you need to sort this array in ascending order to determine the rankings.
+// Sharon is developing a character editor for a simple text-based game. The editor allows users to maintain a singly linked list of characters representing a sequence of moves in the game. 
 
 
 
-// You'll use the insertion sort algorithm to accomplish this.
+// Initially, users input a series of characters to create their move sequence. Later, they can insert a new character at a specific position within the sequence to alter their gameplay strategy, ensuring the list is updated and displayed correctly. Assist Sharon in the task.
+
+
+
+// Company tags: TCS
 
 // Input format :
-// The first line of input contains an integer n, representing the number of athletes.
+// The first line contains an integer n, the number of initial characters.
 
-// The second line contains n space-separated integers, each representing the finishing time of an athlete in seconds.
+// The second line consists of n characters, representing the initial move sequence.
+
+// The last line contains a character and an integer pos, representing the new move to be added and its position in the sequence.
 
 // Output format :
-// The output prints the sorted finishing times of the athletes in ascending order.
+// The first line displays "Current Linked List:" followed by the initial sequence of moves in the next line.
+
+// The third line displays "Updated Linked List:" followed by the updated sequence of moves after inserting the new move at the specified position in the next line.
 
 
 
@@ -24,74 +32,129 @@
 // Code constraints :
 // The given test cases fall under the following constraints:
 
-// 1 ≤ n ≤ 20
-
-// 10 ≤ finishing time ≤ 120
+// 1 ≤ n ≤ 10
 
 // Sample test cases :
 // Input 1 :
-// 5
-// 75 89 65 90 70
+// 6
+// A B C D E F
+// G 7
 // Output 1 :
-// 65 70 75 89 90 
+// Current Linked List:
+// A B C D E F 
+// Updated Linked List:
+// A B C D E F G 
 // Input 2 :
-// 5
-// 60 65 70 75 80
+// 3
+// A O B
+// M 1
 // Output 2 :
-// 60 65 70 75 80 
-// Input 3 :
-// 5
-// 90 85 80 75 70
-// Output 3 :
-// 70 75 80 85 90 
-// Input 4 :
-// 5
-// 80 85 80 70 85
-// Output 4 :
-// 70 80 80 85 85 
+// Current Linked List:
+// A O B 
+// Updated Linked List:
+// M A O B 
 // Note :
 // The program will be evaluated only after the “Submit Code” is clicked.
 // Extra spaces and new line characters in the program output will result in the failure of the test case.
 
 
 #include <iostream>
-#include <vector>
-
 using namespace std;
 
-// Function to perform insertion sort
-void insertionSort(vector<int>& times) {
-    int n = times.size();
-    for (int i = 1; i < n; ++i) {
-        int key = times[i];
-        int j = i - 1;
+// Node structure for singly linked list
+struct Node {
+    char data;
+    Node* next;
+};
 
-        // Move elements of times[0..i-1], that are greater than key, to one position ahead of their current position
-        while (j >= 0 && times[j] > key) {
-            times[j + 1] = times[j];
-            j--;
-        }
-        times[j + 1] = key;
+// Function to create a new node
+Node* createNode(char data) {
+    Node* newNode = new Node();
+    newNode->data = data;
+    newNode->next = nullptr;
+    return newNode;
+}
+
+// Function to print the linked list
+void printList(Node* head) {
+    Node* temp = head;
+    while (temp != nullptr) {
+        cout << temp->data << " ";
+        temp = temp->next;
     }
+    cout << endl;
+}
+
+// Function to insert a new node at a specific position
+Node* insertAtPosition(Node* head, char newChar, int pos) {
+    Node* newNode = createNode(newChar);
+    
+    if (pos == 0) {
+        newNode->next = head;
+        head = newNode;
+        return head;
+    }
+
+    Node* temp = head;
+    for (int i = 0; temp != nullptr && i < pos - 1; i++) {
+        temp = temp->next;
+    }
+
+    if (temp == nullptr) {
+        cout << "Position out of bounds" << endl;
+        return head;
+    }
+
+    newNode->next = temp->next;
+    temp->next = newNode;
+
+    return head;
 }
 
 int main() {
     int n;
     cin >> n;
-    
-    vector<int> times(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> times[i];
+
+    Node* head = nullptr;
+    Node* tail = nullptr;
+
+    // Reading initial characters
+    for (int i = 0; i < n; i++) {
+        char ch;
+        cin >> ch;
+        Node* newNode = createNode(ch);
+        if (head == nullptr) {
+            head = newNode;
+            tail = head;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
     }
-    
-    // Sort times using insertion sort
-    insertionSort(times);
-    
-    // Print the sorted times
-    for (const int& time : times) {
-        cout << time << " ";
+
+    // Printing the current linked list
+    cout << "Current Linked List:" << endl;
+    printList(head);
+
+    // Reading the new character and position
+    char newChar;
+    int pos;
+    cin >> newChar >> pos;
+
+    // Inserting the new character at the specified position
+    head = insertAtPosition(head, newChar, pos);
+
+    // Printing the updated linked list
+    cout << "Updated Linked List:" << endl;
+    printList(head);
+
+    // Clean up the allocated memory
+    Node* temp;
+    while (head != nullptr) {
+        temp = head;
+        head = head->next;
+        delete temp;
     }
-    cout << endl;
-    
+
     return 0;
-}// You are using GCC
+}

@@ -7,7 +7,7 @@ int linearSearch(int arr[], int n, int key) {
             return i;  // Return the index where the element is found
         }
     }
-    return -1;  // Return -1 if the element is not found
+    return -1;  
 }
 
 int main() {
