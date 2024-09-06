@@ -1,25 +1,41 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
+int linearSearch(int arr[], int n, int key) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == key) {
+            return i;  // Return the index where the element is found
+        }
+    }
+    return -1;  // Return -1 if the element is not found
+}
+
 int main() {
-    int a[100], i, n, k, item;
-    cout << "Enter size of array : ";
+    int n, key;
+
+    // Input the size of the array
+    cout << "Enter the size of the array: ";
     cin >> n;
-    cout << "Enter values : ";
-    for(i=0; i<n; i++) {
-        cin >> a[i];
+
+    int arr[n];
+
+    cout << "Enter the elements of the array: ";
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
     }
 
-    cout << "Enter the no. and its position : ";
-    cin >> item >> k;
-    k = k-1;
-    for(i=n; i>=k; i--) {
-        a[i+1] = a[i];
+    
+    cout << "Enter the element to search: ";
+    cin >> key;
+
+    // Perform linear search
+    int result = linearSearch(arr, n, key);
+
+    if (result != -1) {
+        cout << "Element found at index " << result << endl;
+    } else {
+        cout << "Element not found in the array" << endl;
     }
-    a[k]=item;
-    cout << "Contents of the array : ";
-    for(i=0;i<=n;i++) {
-        cout << a[i] << " ";
-    }
+
     return 0;
 }
