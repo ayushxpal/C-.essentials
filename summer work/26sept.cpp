@@ -1,98 +1,108 @@
+// // // // #include <iostream>
+// // // // using namespace std;
+// // // // class rectangle
+// // // // {
+// // // //     int l, b;
+// // // //     public:
+// // // //         rectangle(int x=12, int y=34)
+// // // //         {
+// // // //             l=x;
+// // // //             b=y;
+// // // //         }
+// // // //         int area()
+// // // //         {
+// // // //             return l*b;
+// // // //         }
+// // // // };
+// // // // int main()
+// // // // {
+// // // //     rectangle r;
+// // // //     cout<<"Area is: "<<r.area()<<endl;
+// // // //     rectangle r1(45,67);
+// // // //     cout<<"Area is: "<<r1.area()<<endl;
+// // // // } 
+
 // // // #include <iostream>
 // // // using namespace std;
-// // // class rectangle
+// // // class operator
 // // // {
-// // //     int l, b;
+// // //     int c;
 // // //     public:
-// // //         rectangle(int x=12, int y=34)
-// // //         {
-// // //             l=x;
-// // //             b=y;
-// // //         }
-// // //         int area()
-// // //         {
-// // //             return l*b;
-// // //         }
+// // //     counter(int a)
+// // //     {
+// // //         c=a;
+// // //     }
+// // //     counter(counter &ob)
+// // //     {
+// // //         cout<<"copy constructor invoked";
+// // //         c=ob.c;
+// // //     }
+
+// // //     void show()
+// // //     {
+// // //         cout<<c;
+// // //     }
 // // // };
+
 // // // int main()
 // // // {
-// // //     rectangle r;
-// // //     cout<<"Area is: "<<r.area()<<endl;
-// // //     rectangle r1(45,67);
-// // //     cout<<"Area is: "<<r1.area()<<endl;
-// // // } 
+// // //     counter c1(10);
+// // //     counter c2(c1);
+// // //     c1.show();
+// // //     c2.show();
+// // // }
 
 // // #include <iostream>
 // // using namespace std;
-// // class operator
+// // class rectangle
 // // {
-// //     int c;
+// //     int l, b;
 // //     public:
-// //     counter(int a)
-// //     {
-// //         c=a;
-// //     }
-// //     counter(counter &ob)
-// //     {
-// //         cout<<"copy constructor invoked";
-// //         c=ob.c;
-// //     }
-
-// //     void show()
-// //     {
-// //         cout<<c;
-// //     }
+// //         rectangle(int x=12, int y=34)
+// //         {
+// //             l=x;
+// //             b=y;
+// //         }
+// //         int area()
+// //         {
+// //             return l*b;
+// //         }
 // // };
 
-// // int main()
-// // {
-// //     counter c1(10);
-// //     counter c2(c1);
-// //     c1.show();
-// //     c2.show();
-// // }
-
 // #include <iostream>
+// #include <conio.h>
 // using namespace std;
-// class rectangle
+// class counter
 // {
-//     int l, b;
+//     int id;
 //     public:
-//         rectangle(int x=12, int y=34)
+//         counter()
 //         {
-//             l=x;
-//             b=y;
+//             id=i;
+//             cout<<"constructor of object with id="<<id;
 //         }
-//         int area()
+//         ~counter()
 //         {
-//             return l*b;
+//             cout<<"destructor of object with id="<<id;
 //         }
 // };
 
-#include <iostream>
-#include <conio.h>
-using namespace std;
-class counter
-{
-    int id;
-    public:
-        counter()
-        {
-            id=i;
-            cout<<"constructor of object with id="<<id;
-        }
-        ~counter()
-        {
-            cout<<"destructor of object with id="<<id;
-        }
-};
+// int main()
+// {
+//     counter c1(1);
+//     counter c2(2);
+//     counter c3(3);
+//     cout<<"\n end of main";
 
+// }
+        
+#include <iostream>
+#include <fstream>
+using namespace std;
 int main()
 {
-    counter c1(1);
-    counter c2(2);
-    counter c3(3);
-    cout<<"\n end of main";
-
+    ofstream of("result.txt");
+    of<<"Hello";
+    of.close();
+    cout<<"data saved\n";
 }
-        
