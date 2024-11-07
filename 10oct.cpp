@@ -3,6 +3,38 @@
 #include <string>
 #include <cstring>
 using namespace std;
+
+void merge(int arr[], int left, int mid, int right)
+{
+    int n1=mid - left + 1;
+    int n2= right - mid;
+
+    int leftArr[n1],  rightArr[n2];
+
+    for (int i=0; i<n; )
+}
+
+
+int i=0, j=0, k=left;
+while(i<ans)
+
+while(i<n1)
+{
+    arr[k]=leftArr[i];
+    i++;
+    k++;
+
+}
+
+while(j<n2)
+{
+    arr[k]=rightArr[j];
+    j++;
+    k++;
+}
+
+
+void merge
 class student
 {
     char name[30];
